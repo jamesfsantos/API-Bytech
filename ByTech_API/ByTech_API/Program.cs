@@ -1,4 +1,6 @@
+using ByTech_API.Contracts.Services;
 using ByTech_API.Data;
+using ByTech_API.Services;
 using Microsoft.EntityFrameworkCore; // Ou o nome exato do namespace onde está seu AppDbContext
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+builder.Services.AddScoped<IUsuariosService, UsuarioService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
