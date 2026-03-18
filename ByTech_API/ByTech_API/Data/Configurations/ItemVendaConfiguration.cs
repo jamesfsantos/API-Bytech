@@ -8,7 +8,7 @@ namespace ByTech_API.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ItensVendas> builder)
         {
-            builder.ToTable("Itens_Venda");
+            builder.ToTable("Item_Venda");
             builder.Property(x => x.Id).HasColumnName("id");
             builder.Property(x => x.Quantidade).HasColumnName("quantidade");
             builder.Property(x => x.PrecoUnitarioPago).HasColumnName("preco_unitario_pago");

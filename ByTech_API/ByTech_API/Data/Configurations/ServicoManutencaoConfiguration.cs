@@ -8,7 +8,7 @@ namespace ByTech_API.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ServicoManutencao> builder)
         {
-            builder.ToTable("Servicos_Manutencao");
+            builder.ToTable("Servico_Manutencao");
             builder.Property(x => x.Id).HasColumnName("id");
             builder.Property(x => x.Protocolo).HasColumnName("protocolo").IsRequired();
             builder.Property(x => x.Equipamento).HasColumnName("equipamento").IsRequired();

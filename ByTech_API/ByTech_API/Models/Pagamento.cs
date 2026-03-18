@@ -9,7 +9,7 @@ namespace ByTech_API.Models
         public MetodoPagamento Metodo { get; set; }
         public PagamentoStatus Status { get; set; }
         public DateTime DataConfirmacao { get; set; }
-        public PedidosVenda Venda { get; set; }
+        public PedidoVenda Venda { get; set; }
         
     }
 }

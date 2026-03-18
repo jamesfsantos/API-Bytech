@@ -1,11 +1,11 @@
 ﻿namespace ByTech_API.Models
 {
-    public class PedidosVenda
+    public class PedidoVenda
     {
         public int Id { get; set; }
         public int UsuarioId { get; set; }
-        public DateTime Data_Pedido { get; set; }
-        public decimal Valor_Total_Pedido { get; set; }
+        public DateTime DataPedido { get; set; }
+        public decimal ValorTotalPedido { get; set; }
 
         public Usuarios Usuario {  get; set; }
     }

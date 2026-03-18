@@ -1,4 +1,6 @@
-﻿namespace ByTech_API.Models
+﻿using ByTech_API.Enums;
+
+namespace ByTech_API.Models
 {
     public class ServicoManutencao
     {
@@ -14,12 +16,6 @@
 
         public virtual Usuarios Cliente { get; set; }
         public virtual Usuarios Tecnico { get; set; }
-        public enum StatusServico
-        {
-            Aguardando,
-            Em_Analise,
-            Pronto,
-            Entregue
-        }
+        
     }
 }

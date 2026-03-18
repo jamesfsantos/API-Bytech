@@ -9,6 +9,6 @@
         public decimal PrecoUnitarioPago { get; set; }
 
         public Produtos Produto { get; set; }
-        public PedidosVenda Venda { get; set; }
+        public PedidoVenda Venda { get; set; }
     }
 }

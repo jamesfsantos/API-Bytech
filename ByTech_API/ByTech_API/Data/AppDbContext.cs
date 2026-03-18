@@ -11,9 +11,9 @@ namespace ByTech_API.Data
 
         public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<Produtos> Produtos { get; set; }
-        public DbSet<PedidosVenda> PedidosVenda { get; set; }
+        public DbSet<PedidoVenda> PedidosVenda { get; set; }
         public DbSet<Pagamento> Pagamentos { get; set; }
-        public DbSet<ServicoManutencao> ServicosManutencoes { get; set; }
+        public DbSet<ServicoManutencao> ServicoManutencoes { get; set; }
         public DbSet<ItensVendas> ItensVendas { get; set; }
         public DbSet<CampanhaEmail> CampanhasEmails { get; set; }
         public DbSet<MensagensContato> MensagensContatos { get; set; }

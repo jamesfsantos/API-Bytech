@@ -8,7 +8,7 @@ namespace ByTech_API.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<CampanhaEmail> builder)
         {
-            builder.ToTable("Campanhas_Email");
+            builder.ToTable("Campanha_Email");
             builder.Property(x => x.Id).HasColumnName("id");
             builder.Property(x => x.Assunto).HasColumnName("assunto").IsRequired();
             builder.Property(x => x.CorpoMensagem).HasColumnName("corpo_mensagem").IsRequired();

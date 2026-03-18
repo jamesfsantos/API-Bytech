@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ByTech_API.Data.Configurations
 {
-    public class PedidoVendaConfiguration : IEntityTypeConfiguration<PedidosVenda>
+    public class PedidoVendaConfiguration : IEntityTypeConfiguration<PedidoVenda>
     {
-        public void Configure(EntityTypeBuilder<PedidosVenda> builder)
+        public void Configure(EntityTypeBuilder<PedidoVenda> builder)
         {
-            builder.ToTable("Pedidos_Venda");
+            builder.ToTable("Pedido_Venda");
             builder.Property(x => x.Id).HasColumnName("id");
-            builder.Property(x => x.Data_Pedido).HasColumnName("data_pedido");
-            builder.Property(x => x.Valor_Total_Pedido).HasColumnName("valor_total_pedido");
+            builder.Property(x => x.DataPedido).HasColumnName("data_pedido");
+            builder.Property(x => x.ValorTotalPedido).HasColumnName("valor_total_pedido");
 
             builder.HasOne(x => x.Usuario)
                 .WithMany()

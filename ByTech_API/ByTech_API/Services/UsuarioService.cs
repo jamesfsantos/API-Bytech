@@ -75,8 +75,6 @@ namespace ByTech_API.Services
             await _context.SaveChangesAsync();
             usuarioDto.Id = usuario.Id;
             return usuarioDto;
-            
-
         }
 
         public async Task<bool> ExcluirUsuario(int id)

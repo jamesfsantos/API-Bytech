@@ -8,7 +8,7 @@ namespace ByTech_API.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Usuarios> builder)
         {
-            builder.ToTable("Usuarios");
+            builder.ToTable("Usuario");
             builder.Property(x => x.Id).HasColumnName("id");
             builder.Property(x => x.Nome).HasColumnName("nome").IsRequired();
             builder.Property(x => x.Email).HasColumnName("email").IsRequired();
