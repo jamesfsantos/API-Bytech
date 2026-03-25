@@ -14,7 +14,7 @@ namespace ByTech_API.Data
         public DbSet<PedidoVenda> PedidosVenda { get; set; }
         public DbSet<Pagamento> Pagamentos { get; set; }
         public DbSet<ServicoManutencao> ServicoManutencoes { get; set; }
-        public DbSet<ItensVendas> ItensVendas { get; set; }
+        public DbSet<ItemVenda> ItensVendas { get; set; }
         public DbSet<CampanhaEmail> CampanhasEmails { get; set; }
         public DbSet<MensagensContato> MensagensContatos { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

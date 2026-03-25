@@ -1,6 +1,6 @@
 ﻿namespace ByTech_API.Models
 {
-    public class ItensVendas
+    public class ItemVenda
     {
         public int Id { get; set; }
         public int VendaId { get; set; }

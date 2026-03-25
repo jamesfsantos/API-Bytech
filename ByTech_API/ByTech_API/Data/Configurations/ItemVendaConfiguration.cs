@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ByTech_API.Data.Configurations
 {
-    public class ItemVendaConfiguration : IEntityTypeConfiguration<ItensVendas>
+    public class ItemVendaConfiguration : IEntityTypeConfiguration<ItemVenda>
     {
-        public void Configure(EntityTypeBuilder<ItensVendas> builder)
+        public void Configure(EntityTypeBuilder<ItemVenda> builder)
         {
             builder.ToTable("Item_Venda");
             builder.Property(x => x.Id).HasColumnName("id");
