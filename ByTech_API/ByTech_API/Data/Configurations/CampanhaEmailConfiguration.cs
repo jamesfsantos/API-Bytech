@@ -9,16 +9,18 @@ namespace ByTech_API.Data.Configurations
         public void Configure(EntityTypeBuilder<CampanhaEmail> builder)
         {
             builder.ToTable("Campanha_Email");
+            builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName("id");
-            builder.Property(x => x.Assunto).HasColumnName("assunto").IsRequired();
+            builder.Property(x => x.AdminId).HasColumnName("id_admin");
+            builder.Property(x => x.Assunto).HasColumnName("assunto").HasColumnType("varchar(255)").IsRequired();
             builder.Property(x => x.CorpoMensagem).HasColumnName("corpo_mensagem").IsRequired();
-            builder.Property(x => x.Data_Disparo).HasColumnName("data_disparo");
+            builder.Property(x => x.Data_Disparo).HasColumnName("data_disparo").IsRequired();
 
             builder.HasOne(x => x.UsuarioAdmin)
                 .WithMany()
                 .HasForeignKey(x => x.AdminId);
 
-            builder.Property(x => x.AdminId).HasColumnName("id_admin");
+            
 
         }
     }

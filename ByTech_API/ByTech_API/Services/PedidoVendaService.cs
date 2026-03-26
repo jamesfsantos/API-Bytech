@@ -1,7 +1,7 @@
 ﻿using ByTech_API.Contracts.Services;
 using ByTech_API.Data;
 using ByTech_API.Dtos;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ByTech_API.Services
 {

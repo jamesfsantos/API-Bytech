@@ -27,7 +27,7 @@ namespace ByTech_API.Dtos
         public int Quantidade { get; set; }
         public decimal PrecoUnitarioPago { get; set; }
 
-        public Produtos Produto { get; set; }
+        public Produto Produto { get; set; }
         public PedidoVenda Venda { get; set; }
     }
 }

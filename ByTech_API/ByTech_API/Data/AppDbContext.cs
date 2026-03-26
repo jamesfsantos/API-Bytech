@@ -10,7 +10,7 @@ namespace ByTech_API.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<Usuarios> Usuarios { get; set; }
-        public DbSet<Produtos> Produtos { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
         public DbSet<PedidoVenda> PedidosVenda { get; set; }
         public DbSet<Pagamento> Pagamentos { get; set; }
         public DbSet<ServicoManutencao> ServicoManutencoes { get; set; }

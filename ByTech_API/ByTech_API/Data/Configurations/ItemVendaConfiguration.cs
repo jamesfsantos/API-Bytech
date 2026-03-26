@@ -9,9 +9,13 @@ namespace ByTech_API.Data.Configurations
         public void Configure(EntityTypeBuilder<ItemVenda> builder)
         {
             builder.ToTable("Item_Venda");
+            builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName("id");
-            builder.Property(x => x.Quantidade).HasColumnName("quantidade");
-            builder.Property(x => x.PrecoUnitarioPago).HasColumnName("preco_unitario_pago");
+            builder.Property(x => x.Quantidade).HasColumnName("quantidade").HasColumnType("INT(11)").IsRequired();
+            builder.Property(x => x.PrecoUnitarioPago).HasColumnName("preco_unitario_pago").IsRequired();
+            builder.Property(x => x.VendaId).HasColumnName("id_venda").IsRequired();
+            builder.Property(x => x.ProdutoId).HasColumnName("id_produto").IsRequired();
+
 
             builder.HasOne(x => x.Venda)
             .WithMany()
@@ -21,8 +25,7 @@ namespace ByTech_API.Data.Configurations
             .WithMany()
             .HasForeignKey(x => x.ProdutoId);
 
-            builder.Property(x => x.VendaId).HasColumnName("id_venda");
-            builder.Property(x => x.ProdutoId).HasColumnName("id_produto");
+            
         }
     }
 }

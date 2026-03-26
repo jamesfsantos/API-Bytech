@@ -9,15 +9,16 @@ namespace ByTech_API.Data.Configurations
         public void Configure(EntityTypeBuilder<PedidoVenda> builder)
         {
             builder.ToTable("Pedido_Venda");
+            builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName("id");
             builder.Property(x => x.DataPedido).HasColumnName("data_pedido");
-            builder.Property(x => x.ValorTotalPedido).HasColumnName("valor_total_pedido");
+            builder.Property(x => x.ValorTotalPedido).HasColumnName("valor_total_pedido").IsRequired();
+            builder.Property(x => x.UsuarioId).HasColumnName("id_usuario");
 
             builder.HasOne(x => x.Usuario)
                 .WithMany()
                 .HasForeignKey(x => x.UsuarioId);
 
-            builder.Property(x => x.UsuarioId).HasColumnName("id_usuario");
         }
     }
 }

@@ -7,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Add services to the container.
-builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySQL(connectionString));
 builder.Services.AddScoped<IUsuariosService, UsuarioService>();
 builder.Services.AddScoped<IPagamentoService, PagamentoService>();
 builder.Services.AddScoped<IPedidoVendaService, PedidoVendaService>();
@@ -15,6 +16,7 @@ builder.Services.AddScoped<IServicoManutencaoService, ServicoManutencaoService>(
 builder.Services.AddScoped<IItemVendaService, ItemVendaService>();
 builder.Services.AddScoped<ICampanhaEmailService, CampanhaEmailService>();
 builder.Services.AddScoped<IMensagensContatoService, MensagensContatoService>();
+builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -30,7 +32,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+    
 app.UseAuthorization();
 
 app.MapControllers();
