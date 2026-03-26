@@ -5,5 +5,7 @@ namespace ByTech_API.Contracts.Services
     public interface IProdutoService
     {
         Task<IEnumerable<ProdutoDto>> ObterTodosAsync();
+        Task<ProdutoDto> ObterPorId(int id);
+        Task<ProdutoDto> AdicionarProduto(ProdutoDto produto);
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ByTech_API.Services
 {
-    public class UsuarioService : IUsuariosService
+    public class UsuarioService : IUsuarioService
     {
         private readonly AppDbContext _context;
         public UsuarioService(AppDbContext context)

@@ -1,5 +1,7 @@
 ﻿using ByTech_API.Contracts.Services;
 using ByTech_API.Data;
+using ByTech_API.Dtos;
+using ByTech_API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +19,17 @@ namespace ByTech_API.Controllers
             _context = context;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AdicionarProduto([FromBody] ProdutoDto produtoDto)
+        {
+            var produto = await _service.AdicionarProduto(produtoDto);
+
+            if (produto == null) return BadRequest();
+
+            return CreatedAtAction(nameof(ObterProdutoId), new { id = produto.Id }, produto);
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> ObterProdutos() 
         {
@@ -24,6 +37,15 @@ namespace ByTech_API.Controllers
             if(produtos == null)
                 return NotFound();
             return Ok(produtos);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> ObterProdutoId(int id)
+        {
+            var produto = await _service.ObterPorId(id);
+            if(produto == null)
+                return NotFound();
+            return Ok(produto);
         }
     }
 }

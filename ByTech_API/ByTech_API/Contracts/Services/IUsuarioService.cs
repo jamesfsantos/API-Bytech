@@ -3,7 +3,7 @@ using ByTech_API.Models;
 
 namespace ByTech_API.Contracts.Services
 {
-    public interface IUsuariosService
+    public interface IUsuarioService
     {
         Task<IEnumerable<UsuarioDto>> ObterTodos();
         Task<UsuarioDto> ObterPorId(int id);

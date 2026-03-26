@@ -9,7 +9,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySQL(connectionString));
-builder.Services.AddScoped<IUsuariosService, UsuarioService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IPagamentoService, PagamentoService>();
 builder.Services.AddScoped<IPedidoVendaService, PedidoVendaService>();
 builder.Services.AddScoped<IServicoManutencaoService, ServicoManutencaoService>();
@@ -22,7 +22,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options => {
+    options.AddPolicy("PoliticaCors", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+
+    });
+});
+
 var app = builder.Build();
+
+app.UseCors("PoliticaCors");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

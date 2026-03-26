@@ -13,9 +13,9 @@ namespace ByTech_API.Controllers
     public class UsuariosController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly IUsuariosService _service;
+        private readonly IUsuarioService _service;
 
-        public UsuariosController(AppDbContext context, IUsuariosService service)
+        public UsuariosController(AppDbContext context, IUsuarioService service)
         {
             _context = context;
             _service = service;
