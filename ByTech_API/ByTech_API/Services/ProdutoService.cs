@@ -24,6 +24,7 @@ namespace ByTech_API.Services
                 Descricao = produtoDto.Descricao,
                 EstoqueAtual = produtoDto.EstoqueAtual,
                 PrecoVenda = produtoDto.PrecoVenda,
+                Imagem = produtoDto.Imagem,
             };
 
             _context.Add(produto);
@@ -45,7 +46,8 @@ namespace ByTech_API.Services
                 Categoria = produto.Categoria,
                 Descricao = produto.Descricao,
                 EstoqueAtual = produto.EstoqueAtual,
-                PrecoVenda = produto.PrecoVenda
+                PrecoVenda = produto.PrecoVenda,
+                Imagem = produto.Imagem
             };
         }
 

@@ -17,6 +17,7 @@ namespace ByTech_API.Data.Configurations
             builder.Property(x => x.PrecoVenda).HasColumnName("preco_venda").IsRequired();
             builder.Property(x => x.EstoqueAtual).HasColumnName("estoque_atual").IsRequired();
             builder.Property(x => x.Marca).HasColumnName("marca").IsRequired();
+            builder.Property(x => x.Imagem).HasColumnName("imagem").IsRequired();
         }
     }
 }

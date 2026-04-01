@@ -11,7 +11,7 @@ namespace ByTech_API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "Imagem",
+                name: "imagem",
                 table: "Produto",
                 type: "longtext",
                 nullable: false);
@@ -21,7 +21,7 @@ namespace ByTech_API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Imagem",
+                name: "imagem",
                 table: "Produto");
         }
     }
