@@ -43,7 +43,16 @@ namespace ByTech_API.Controllers
         public async Task<IActionResult> ObterProdutoId(int id)
         {
             var produto = await _service.ObterPorId(id);
-            if(produto == null)
+            if (produto == null)
+                return NotFound();
+            return Ok(produto);
+        }
+
+        [HttpGet("/api/Produto/Categoria/{categoria}")]
+        public async Task<IActionResult> ObterPorCategoria(string categoria)
+        {
+            var produto = await _service.ObterPorCategoria(categoria);
+            if (produto == null)
                 return NotFound();
             return Ok(produto);
         }
