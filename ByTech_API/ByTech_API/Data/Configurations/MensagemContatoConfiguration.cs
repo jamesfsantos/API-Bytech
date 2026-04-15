@@ -8,7 +8,7 @@ namespace ByTech_API.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<MensagensContato> builder)
         {
-            builder.ToTable("Mensagem_Contato");
+            builder.ToTable("mensagem_contato");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName("id");
             builder.Property(x => x.Nome).HasColumnName("nome_visitante").HasColumnType("varchar(100)").IsRequired();
