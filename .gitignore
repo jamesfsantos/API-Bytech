@@ -3,6 +3,11 @@
 [Oo]bj/
 *.user
 *.suo
+*.userosscache
+*.sln.docstates
 /ByTech_API/ByTech_API/obj/Debug/net8.0/ByTech_API.AssemblyInfoInputs.cache
 /ByTech_API/ByTech_API/obj/Debug/net8.0/ByTech_API.AssemblyInfo.cs
 /ByTech_API/ByTech_API/obj/Debug/net8.0/ByTech_API.assets.cache
+
+
+
