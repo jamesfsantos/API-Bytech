@@ -8,7 +8,7 @@ namespace ByTech_API.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<PedidoVenda> builder)
         {
-            builder.ToTable("Pedido_Venda");
+            builder.ToTable("pedido_venda");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName("id");
             builder.Property(x => x.DataPedido).HasColumnName("data_pedido");
