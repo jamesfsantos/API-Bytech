@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ByTech_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260326173302_initial")]
-    partial class initial
+    [Migration("20260417173014_categoria")]
+    partial class categoria
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,7 +51,24 @@ namespace ByTech_API.Migrations
 
                     b.HasIndex("AdminId");
 
-                    b.ToTable("Campanha_Email", (string)null);
+                    b.ToTable("campanha_email", (string)null);
+                });
+
+            modelBuilder.Entity("ByTech_API.Models.Categoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int(11)")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("nome");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("categoria", (string)null);
                 });
 
             modelBuilder.Entity("ByTech_API.Models.ItemVenda", b =>
@@ -83,7 +100,7 @@ namespace ByTech_API.Migrations
 
                     b.HasIndex("VendaId");
 
-                    b.ToTable("Item_Venda", (string)null);
+                    b.ToTable("item_venda", (string)null);
                 });
 
             modelBuilder.Entity("ByTech_API.Models.MensagensContato", b =>
@@ -125,7 +142,7 @@ namespace ByTech_API.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Mensagem_Contato", (string)null);
+                    b.ToTable("mensagem_contato", (string)null);
                 });
 
             modelBuilder.Entity("ByTech_API.Models.Pagamento", b =>
@@ -158,7 +175,7 @@ namespace ByTech_API.Migrations
                     b.HasIndex("VendaId")
                         .IsUnique();
 
-                    b.ToTable("Pagamento", (string)null);
+                    b.ToTable("pagamento", (string)null);
                 });
 
             modelBuilder.Entity("ByTech_API.Models.PedidoVenda", b =>
@@ -184,7 +201,7 @@ namespace ByTech_API.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Pedido_Venda", (string)null);
+                    b.ToTable("pedido_venda", (string)null);
                 });
 
             modelBuilder.Entity("ByTech_API.Models.Produto", b =>
@@ -194,10 +211,9 @@ namespace ByTech_API.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    b.Property<string>("Categoria")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("categoria");
+                    b.Property<int>("CategoriaId")
+                        .HasColumnType("int(11)")
+                        .HasColumnName("id_categoria");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
@@ -207,6 +223,11 @@ namespace ByTech_API.Migrations
                     b.Property<int>("EstoqueAtual")
                         .HasColumnType("int")
                         .HasColumnName("estoque_atual");
+
+                    b.Property<string>("Imagem")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("imagem");
 
                     b.Property<string>("Marca")
                         .IsRequired()
@@ -224,7 +245,9 @@ namespace ByTech_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Produto", (string)null);
+                    b.HasIndex("CategoriaId");
+
+                    b.ToTable("produto", (string)null);
                 });
 
             modelBuilder.Entity("ByTech_API.Models.ServicoManutencao", b =>
@@ -277,7 +300,7 @@ namespace ByTech_API.Migrations
 
                     b.HasIndex("TecnicoId");
 
-                    b.ToTable("Servico_Manutencao", (string)null);
+                    b.ToTable("servico_manutencao", (string)null);
                 });
 
             modelBuilder.Entity("ByTech_API.Models.Usuarios", b =>
@@ -309,7 +332,7 @@ namespace ByTech_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuario", (string)null);
+                    b.ToTable("usuario", (string)null);
                 });
 
             modelBuilder.Entity("ByTech_API.Models.CampanhaEmail", b =>
@@ -373,6 +396,17 @@ namespace ByTech_API.Migrations
                         .IsRequired();
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("ByTech_API.Models.Produto", b =>
+                {
+                    b.HasOne("ByTech_API.Models.Categoria", "Categoria")
+                        .WithMany()
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Categoria");
                 });
 
             modelBuilder.Entity("ByTech_API.Models.ServicoManutencao", b =>

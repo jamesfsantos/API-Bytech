@@ -39,22 +39,22 @@ namespace ByTech_API.Controllers
             return Ok(produtos);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> ObterProdutoId(int id)
+        [HttpGet("{categoriaId}")]
+        public async Task<IActionResult> ObterProdutoId(int categoriaId)
         {
-            var produto = await _service.ObterPorId(id);
+            var produto = await _service.ObterPorIdCategoria(categoriaId);
             if (produto == null)
                 return NotFound();
             return Ok(produto);
         }
 
-        [HttpGet("/api/Produto/Categoria/{categoria}")]
-        public async Task<IActionResult> ObterPorCategoria(string categoria)
-        {
-            var produto = await _service.ObterPorCategoria(categoria);
-            if (produto == null)
-                return NotFound();
-            return Ok(produto);
-        }
+        //[HttpGet("/api/Produto/Categoria/{categoria}")]
+        //public async Task<IActionResult> ObterPorCategoria(string categoria)
+        //{
+        //    var produto = await _service.ObterPorCategoria(categoria);
+        //    if (produto == null)
+        //        return NotFound();
+        //    return Ok(produto);
+        //}
     }
 }
