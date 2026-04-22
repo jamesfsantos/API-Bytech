@@ -3,7 +3,6 @@ using ByTech_API.Data;
 using ByTech_API.Dtos;
 using ByTech_API.Models;
 using Microsoft.EntityFrameworkCore;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ByTech_API.Services
 {
@@ -17,7 +16,7 @@ namespace ByTech_API.Services
 
         public async Task<ProdutoDto> AdicionarProduto(ProdutoDto produtoDto)
         {
-            var produto = new Produto 
+            var produto = new Produto
             {
                 Nome = produtoDto.Nome,
                 Marca = produtoDto.Marca,
@@ -34,43 +33,27 @@ namespace ByTech_API.Services
             return produtoDto;
         }
 
-        //public async Task<List<ProdutoDto>> ObterPorCategoria(string categoria)
-        //{
-        //    var produtos = await _context.Produtos.Where(c => c.CategoriaId == categoria).ToListAsync();
-        //    if (produtos == null)
-        //        return null;
+        public async Task<ProdutoDto> ObterPorId(int id)
+        {
+            var produtos = await _context.Produtos
+                                            .Include(p => p.Categoria) 
+                                            .FirstOrDefaultAsync(p => p.Id == id);
+            if (produtos == null)
+                return null;
 
-        //    var produtoDto = produtos.Select(p => new ProdutoDto{
-        //        Id = p.Id,
-        //        Nome = p.Nome,
-        //        Marca = p.Marca,
-        //        Categoria = p.Categoria,
-        //        Descricao = p.Descricao,
-        //        EstoqueAtual = p.EstoqueAtual,
-        //        PrecoVenda = p.PrecoVenda,
-        //        Imagem = p.Imagem
-        //    }).ToList();
-
-        //    return produtoDto;
-        //}
-
-        //public async Task<ProdutoDto> ObterPorId(int id)
-        //{
-        //    var produtos = await _context.Produtos.FindAsync(id);
-        //    if (produtos == null)
-        //        return null;
-
-        //    return new ProdutoDto {
-        //        Id = produtos.Id,
-        //        Nome = produtos.Nome,
-        //        Marca = produtos.Marca,
-        //        CategoriaId = produtos.CategoriaId,
-        //        Descricao = produtos.Descricao,
-        //        EstoqueAtual = produtos.EstoqueAtual,
-        //        PrecoVenda = produtos.PrecoVenda,
-        //        Imagem = produtos.Imagem
-        //    };
-        //}
+            return new ProdutoDto
+            {
+                Id = produtos.Id,
+                Nome = produtos.Nome,
+                Marca = produtos.Marca,
+                CategoriaId = produtos.CategoriaId,
+                Descricao = produtos.Descricao,
+                EstoqueAtual = produtos.EstoqueAtual,
+                PrecoVenda = produtos.PrecoVenda,
+                Imagem = produtos.Imagem,
+                Categoria = new CategoriaDto { Id = produtos.Categoria.Id, Nome = produtos.Categoria.Nome }
+            };
+        }
 
         public async Task<IEnumerable<ProdutoDto>> ObterPorIdCategoria(int categoriaId)
         {
@@ -88,18 +71,17 @@ namespace ByTech_API.Services
                 EstoqueAtual = p.EstoqueAtual,
                 PrecoVenda = p.PrecoVenda,
                 Imagem = p.Imagem,
-                Categoria = new CategoriaDto {Id = p.Categoria.Id, Nome = p.Categoria.Nome }
+                Categoria = new CategoriaDto { Id = p.Categoria.Id, Nome = p.Categoria.Nome }
             });
         }
 
         public async Task<IEnumerable<ProdutoDto>> ObterTodosAsync()
         {
-            var produtos = await _context.Produtos.ToListAsync();
+            var produtos = await _context.Produtos.Include(p => p.Categoria).ToListAsync();
             if (produtos == null || !produtos.Any())
                 return null;
             return produtos.Select(produto => new ProdutoDto(produto));
         }
 
-        
     }
 }

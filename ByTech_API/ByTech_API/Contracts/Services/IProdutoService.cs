@@ -6,7 +6,9 @@ namespace ByTech_API.Contracts.Services
     {
         Task<IEnumerable<ProdutoDto>> ObterTodosAsync();
         Task<IEnumerable<ProdutoDto>> ObterPorIdCategoria(int categoriaId);
-        
+        Task<ProdutoDto> ObterPorId(int id);
+
+
         Task<ProdutoDto> AdicionarProduto(ProdutoDto produto);
     }
 }
