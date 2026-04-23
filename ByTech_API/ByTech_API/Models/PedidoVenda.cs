@@ -7,6 +7,6 @@
         public DateTime DataPedido { get; set; }
         public decimal ValorTotalPedido { get; set; }
 
-        public Usuarios Usuario {  get; set; }
+        public Usuario Usuario {  get; set; }
     }
 }

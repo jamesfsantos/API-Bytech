@@ -14,8 +14,8 @@ namespace ByTech_API.Models
         public StatusServico Status_Servico {  get; set; }
         public DateTime Data_Entrada { get; set; }
 
-        public virtual Usuarios Cliente { get; set; }
-        public virtual Usuarios Tecnico { get; set; }
+        public virtual Usuario Cliente { get; set; }
+        public virtual Usuario Tecnico { get; set; }
         
     }
 }

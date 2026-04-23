@@ -28,6 +28,6 @@ namespace ByTech_API.Dtos
         public string Mensagem { get; set; }
         public DateTime Data_Envio { get; set; }
 
-        public Usuarios Usuario { get; set; }
+        public Usuario Usuario { get; set; }
     }
 }

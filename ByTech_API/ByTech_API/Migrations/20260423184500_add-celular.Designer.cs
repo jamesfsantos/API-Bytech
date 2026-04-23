@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ByTech_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260417173014_categoria")]
-    partial class categoria
+    [Migration("20260423184500_add-celular")]
+    partial class addcelular
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -303,12 +303,34 @@ namespace ByTech_API.Migrations
                     b.ToTable("servico_manutencao", (string)null);
                 });
 
+            modelBuilder.Entity("ByTech_API.Models.TipoUsuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int(11)")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("nome");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tipo_usuario", (string)null);
+                });
+
             modelBuilder.Entity("ByTech_API.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("id");
+
+                    b.Property<string>("Celular")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("celular");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -322,15 +344,21 @@ namespace ByTech_API.Migrations
 
                     b.Property<string>("Senha")
                         .IsRequired()
-                        .HasColumnType("varchar(20)")
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("senha");
 
-                    b.Property<string>("TipoUsuario")
+                    b.Property<string>("SenhaSalt")
                         .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("tipo_usuario");
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("senhaSalt");
+
+                    b.Property<int>("TipoUsuarioId")
+                        .HasColumnType("int(11)")
+                        .HasColumnName("id_tipo_usuario");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TipoUsuarioId");
 
                     b.ToTable("usuario", (string)null);
                 });
@@ -426,6 +454,17 @@ namespace ByTech_API.Migrations
                     b.Navigation("Cliente");
 
                     b.Navigation("Tecnico");
+                });
+
+            modelBuilder.Entity("ByTech_API.Models.Usuario", b =>
+                {
+                    b.HasOne("ByTech_API.Models.TipoUsuario", "TipoUsuario")
+                        .WithMany()
+                        .HasForeignKey("TipoUsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TipoUsuario");
                 });
 #pragma warning restore 612, 618
         }

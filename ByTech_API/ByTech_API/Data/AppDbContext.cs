@@ -9,10 +9,11 @@ namespace ByTech_API.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<Usuarios> Usuarios { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<PedidoVenda> PedidosVenda { get; set; }
         public DbSet<Pagamento> Pagamentos { get; set; }
+        public DbSet<TipoUsuario> TipoUsuarios { get; set; }
         public DbSet<ServicoManutencao> ServicoManutencoes { get; set; }
         public DbSet<ItemVenda> ItensVendas { get; set; }
         public DbSet<CampanhaEmail> CampanhasEmails { get; set; }
@@ -29,7 +30,8 @@ namespace ByTech_API.Data
             modelBuilder.ApplyConfiguration(new PedidoVendaConfiguration());
             modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
             modelBuilder.ApplyConfiguration(new ServicoManutencaoConfiguration());            
-            modelBuilder.ApplyConfiguration(new CategoriaConfiguration());            
+            modelBuilder.ApplyConfiguration(new CategoriaConfiguration());
+            modelBuilder.ApplyConfiguration(new TipoUsuarioConfiguration());
         }
     }
 }
