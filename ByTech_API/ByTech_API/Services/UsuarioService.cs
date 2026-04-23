@@ -33,7 +33,7 @@ namespace ByTech_API.Services
                 Email = usuario.Email,
                 Celular = usuario.Celular,
                 TipoUsuarioId = usuario.TipoUsuarioId
-            
+
             });
 
         }
@@ -89,24 +89,39 @@ namespace ByTech_API.Services
             byte[] hashBytes = SHA256.HashData(senhaComSaltBytes);
             string hashString = Convert.ToBase64String(hashBytes);
 
-
-
-
-            var usuario = new Usuario
+            try
             {
-                Nome = usuarioDto.Nome,
-                Email = usuarioDto.Email,
-                Senha = hashString,
-                SenhaSalt = saltString,
-                Celular = usuarioDto.Celular,
-                TipoUsuarioId = 2
-            };
+                var usuarioValido = _context.Usuarios.Any(x => x.Email == usuarioDto.Email );
 
-            _context.Usuarios.Add(usuario);
+                if (usuarioValido) 
+                {
+                    throw new Exception("Esse e-mail já possui cadastro!");
+                }
+                else
+                {
+                    var usuario = new Usuario
+                    {
+                        Nome = usuarioDto.Nome,
+                        Email = usuarioDto.Email,
+                        Senha = hashString,
+                        SenhaSalt = saltString,
+                        Celular = usuarioDto.Celular,
+                        TipoUsuarioId = 2
+                    };
 
-            await _context.SaveChangesAsync();
-            usuarioDto.Id = usuario.Id;
-            return usuarioDto;
+                    _context.Usuarios.Add(usuario);
+
+                    await _context.SaveChangesAsync();
+                    usuarioDto.Id = usuario.Id;
+                    return usuarioDto;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e);
+                return null;
+            }
+
         }
 
 
