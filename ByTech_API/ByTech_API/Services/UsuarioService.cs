@@ -2,7 +2,6 @@
 using ByTech_API.Data;
 using ByTech_API.Dtos;
 using ByTech_API.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
@@ -32,6 +31,11 @@ namespace ByTech_API.Services
                 Nome = usuario.Nome,
                 Email = usuario.Email,
                 Celular = usuario.Celular,
+                Cpf = usuario.Cpf,
+                Endereco = usuario.Endereco,
+                Complemento = usuario.Complemento,
+                Cidade = usuario.Cidade,
+                Cep = usuario.Cep,
                 TipoUsuarioId = usuario.TipoUsuarioId
 
             });
@@ -49,6 +53,11 @@ namespace ByTech_API.Services
             usuario.Email = usuarioDto.Email;
             usuario.Senha = usuarioDto.Senha;
             usuario.Celular = usuarioDto.Celular;
+            usuario.Cpf = usuarioDto.Cpf;
+            usuario.Endereco = usuarioDto.Endereco;
+            usuario.Complemento = usuarioDto.Complemento;
+            usuario.Cidade = usuarioDto.Cidade;
+            usuario.Cep = usuarioDto.Cep;
 
             _context.Update(usuario);
             await _context.SaveChangesAsync();
@@ -69,6 +78,10 @@ namespace ByTech_API.Services
                 Email = usuario.Email,
                 TipoUsuarioId = usuario.TipoUsuarioId,
                 Celular = usuario.Celular,
+                Endereco = usuario.Endereco,
+                Complemento = usuario.Complemento,
+                Cidade = usuario.Cidade,
+                Cep = usuario.Cep,
                 TipoUsuario = new TipoUsuarioDto
                 {
                     Id = usuario.TipoUsuario.Id,
@@ -106,6 +119,11 @@ namespace ByTech_API.Services
                         Senha = hashString,
                         SenhaSalt = saltString,
                         Celular = usuarioDto.Celular,
+                        Endereco = usuarioDto.Endereco,
+                        Complemento = usuarioDto.Complemento,
+                        Cpf = usuarioDto.Cpf,
+                        Cidade = usuarioDto.Cidade,
+                        Cep = usuarioDto.Cep,
                         TipoUsuarioId = 2
                     };
 
