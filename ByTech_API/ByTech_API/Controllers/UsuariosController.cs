@@ -50,6 +50,8 @@ namespace ByTech_API.Controllers
 
             var usuario = await _service.AdicionarUsuario(usuarioDto);
 
+            if (usuario == null) return BadRequest();
+
             
             return CreatedAtAction(nameof(BuscarUsuarioid), new { id = usuario.Id }, usuario);
         }
