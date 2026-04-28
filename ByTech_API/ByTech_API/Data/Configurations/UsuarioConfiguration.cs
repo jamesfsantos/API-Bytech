@@ -16,7 +16,7 @@ namespace ByTech_API.Data.Configurations
             builder.Property(x => x.Senha).HasColumnName("senha").HasColumnType("varchar(255)").IsRequired();
             builder.Property(x => x.SenhaSalt).HasColumnName("senhaSalt").HasColumnType("varchar(255)").IsRequired();
             builder.Property(x => x.Celular).HasColumnName("celular").HasColumnType("varchar(20)").IsRequired();
-            builder.Property(x => x.Cpf).HasColumnName("cpf").HasColumnType("varchar(9)").IsRequired();
+            builder.Property(x => x.Cpf).HasColumnName("cpf").HasColumnType("varchar(20)").IsRequired();
             builder.Property(x => x.Endereco).HasColumnName("endereco").HasColumnType("varchar(255)").IsRequired();
             builder.Property(x => x.Complemento).HasColumnName("complemento").HasColumnType("varchar(255)").IsRequired();
             builder.Property(x => x.Cidade).HasColumnName("cidade").HasColumnType("varchar(255)").IsRequired();

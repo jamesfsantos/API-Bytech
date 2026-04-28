@@ -51,11 +51,11 @@ namespace ByTech_API.Services
             if (!validarSenha) return null;
 
 
-            return GerarToken(usuario.Email, usuario.TipoUsuarioId.ToString());
+            return GerarToken(usuario.Email, usuario.TipoUsuarioId.ToString(), usuario.Nome);
 
         }
 
-        public string GerarToken(string email, string role)
+        public string GerarToken(string email, string role, string nome)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:key"]);
@@ -65,7 +65,8 @@ namespace ByTech_API.Services
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Email, email),
-                    new Claim(ClaimTypes.Role, role)
+                    new Claim(ClaimTypes.Role, role),
+                    new Claim("NomeUsuario", nome)
                 }),
                 Expires = DateTime.UtcNow.AddHours(3),
                 SigningCredentials = new SigningCredentials(

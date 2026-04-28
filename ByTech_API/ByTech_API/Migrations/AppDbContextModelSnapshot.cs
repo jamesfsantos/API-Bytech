@@ -331,7 +331,7 @@ namespace ByTech_API.Migrations
 
                     b.Property<string>("Cep")
                         .IsRequired()
-                        .HasColumnType("varchar(255")
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("cep");
 
                     b.Property<string>("Cidade")
@@ -346,7 +346,7 @@ namespace ByTech_API.Migrations
 
                     b.Property<string>("Cpf")
                         .IsRequired()
-                        .HasColumnType("varchar(9)")
+                        .HasColumnType("varchar(20)")
                         .HasColumnName("cpf");
 
                     b.Property<string>("Email")

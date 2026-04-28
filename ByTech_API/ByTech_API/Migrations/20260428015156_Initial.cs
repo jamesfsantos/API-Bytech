@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace ByTech_API.Migrations
 {
     /// <inheritdoc />
-    public partial class categoria : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,19 +30,16 @@ namespace ByTech_API.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "usuario",
+                name: "tipo_usuario",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "int(11)", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    nome = table.Column<string>(type: "varchar(50)", nullable: false),
-                    email = table.Column<string>(type: "varchar(100)", nullable: false),
-                    senha = table.Column<string>(type: "varchar(20)", nullable: false),
-                    tipo_usuario = table.Column<string>(type: "longtext", nullable: false)
+                    nome = table.Column<string>(type: "varchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_usuario", x => x.id);
+                    table.PrimaryKey("PK_tipo_usuario", x => x.id);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -67,6 +64,36 @@ namespace ByTech_API.Migrations
                         name: "FK_produto_categoria_id_categoria",
                         column: x => x.id_categoria,
                         principalTable: "categoria",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "usuario",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    nome = table.Column<string>(type: "varchar(50)", nullable: false),
+                    email = table.Column<string>(type: "varchar(100)", nullable: false),
+                    senha = table.Column<string>(type: "varchar(255)", nullable: false),
+                    senhaSalt = table.Column<string>(type: "varchar(255)", nullable: false),
+                    celular = table.Column<string>(type: "varchar(20)", nullable: false),
+                    id_tipo_usuario = table.Column<int>(type: "int(11)", nullable: false),
+                    cpf = table.Column<string>(type: "varchar(9)", nullable: false),
+                    endereco = table.Column<string>(type: "varchar(255)", nullable: false),
+                    complemento = table.Column<string>(type: "varchar(255)", nullable: false),
+                    cidade = table.Column<string>(type: "varchar(255)", nullable: false),
+                    cep = table.Column<string>(type: "varchar(255)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_usuario", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_usuario_tipo_usuario_id_tipo_usuario",
+                        column: x => x.id_tipo_usuario,
+                        principalTable: "tipo_usuario",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -272,6 +299,11 @@ namespace ByTech_API.Migrations
                 name: "IX_servico_manutencao_id_tecnico",
                 table: "servico_manutencao",
                 column: "id_tecnico");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_usuario_id_tipo_usuario",
+                table: "usuario",
+                column: "id_tipo_usuario");
         }
 
         /// <inheritdoc />
@@ -303,6 +335,9 @@ namespace ByTech_API.Migrations
 
             migrationBuilder.DropTable(
                 name: "usuario");
+
+            migrationBuilder.DropTable(
+                name: "tipo_usuario");
         }
     }
 }

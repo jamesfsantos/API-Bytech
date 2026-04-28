@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ByTech_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260423183425_update")]
-    partial class update
+    [Migration("20260428021154_update_cpf")]
+    partial class update_cpf
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -327,10 +327,40 @@ namespace ByTech_API.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
+                    b.Property<string>("Celular")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("celular");
+
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("cep");
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("cidade");
+
+                    b.Property<string>("Complemento")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("complemento");
+
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("cpf");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("varchar(100)")
                         .HasColumnName("email");
+
+                    b.Property<string>("Endereco")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("endereco");
 
                     b.Property<string>("Nome")
                         .IsRequired()

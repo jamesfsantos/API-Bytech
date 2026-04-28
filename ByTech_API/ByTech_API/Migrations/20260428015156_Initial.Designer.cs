@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ByTech_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260423180821_add-tipo_usuario")]
-    partial class addtipo_usuario
+    [Migration("20260428015156_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -327,10 +327,40 @@ namespace ByTech_API.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
+                    b.Property<string>("Celular")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("celular");
+
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("cep");
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("cidade");
+
+                    b.Property<string>("Complemento")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("complemento");
+
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasColumnType("varchar(9)")
+                        .HasColumnName("cpf");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("varchar(100)")
                         .HasColumnName("email");
+
+                    b.Property<string>("Endereco")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("endereco");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -339,12 +369,12 @@ namespace ByTech_API.Migrations
 
                     b.Property<string>("Senha")
                         .IsRequired()
-                        .HasColumnType("varchar(20)")
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("senha");
 
                     b.Property<string>("SenhaSalt")
                         .IsRequired()
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("senhaSalt");
 
                     b.Property<int>("TipoUsuarioId")
