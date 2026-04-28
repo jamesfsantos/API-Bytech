@@ -50,10 +50,24 @@ namespace ByTech_API.Controllers
 
             var usuario = await _service.AdicionarUsuario(usuarioDto);
 
+            if (usuario == null) return BadRequest();
+
             
             return CreatedAtAction(nameof(BuscarUsuarioid), new { id = usuario.Id }, usuario);
         }
 
+        [HttpGet("/email/")]
+        public async Task<IActionResult> BuscarUsuarioEmail(string email)
+        {
+            var usuario = await _service.ObterPorEmail(email);
+
+            if(usuario == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(usuario);
+        }
         
 
         [HttpPut("{id}")] 

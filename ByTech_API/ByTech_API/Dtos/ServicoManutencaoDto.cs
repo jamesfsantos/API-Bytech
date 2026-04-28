@@ -33,7 +33,7 @@ namespace ByTech_API.Dtos
         public StatusServico Status_Servico { get; set; }
         public DateTime Data_Entrada { get; set; }
 
-        public Usuarios? Cliente { get; set; }
-        public Usuarios? Tecnico { get; set; }
+        public Usuario? Cliente { get; set; }
+        public Usuario? Tecnico { get; set; }
     }
 }

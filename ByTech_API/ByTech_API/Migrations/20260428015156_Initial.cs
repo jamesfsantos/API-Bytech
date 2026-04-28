@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace ByTech_API.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,13 +16,42 @@ namespace ByTech_API.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Produto",
+                name: "categoria",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int(11)", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    nome = table.Column<string>(type: "varchar(100)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_categoria", x => x.id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "tipo_usuario",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int(11)", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    nome = table.Column<string>(type: "varchar(100)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tipo_usuario", x => x.id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "produto",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     nome = table.Column<string>(type: "longtext", nullable: false),
-                    categoria = table.Column<string>(type: "longtext", nullable: false),
+                    id_categoria = table.Column<int>(type: "int(11)", nullable: false),
+                    imagem = table.Column<string>(type: "longtext", nullable: false),
                     descricao = table.Column<string>(type: "longtext", nullable: false),
                     preco_venda = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     estoque_atual = table.Column<int>(type: "int", nullable: false),
@@ -30,29 +59,48 @@ namespace ByTech_API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Produto", x => x.id);
+                    table.PrimaryKey("PK_produto", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_produto_categoria_id_categoria",
+                        column: x => x.id_categoria,
+                        principalTable: "categoria",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Usuario",
+                name: "usuario",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     nome = table.Column<string>(type: "varchar(50)", nullable: false),
                     email = table.Column<string>(type: "varchar(100)", nullable: false),
-                    senha = table.Column<string>(type: "varchar(20)", nullable: false),
-                    tipo_usuario = table.Column<string>(type: "longtext", nullable: false)
+                    senha = table.Column<string>(type: "varchar(255)", nullable: false),
+                    senhaSalt = table.Column<string>(type: "varchar(255)", nullable: false),
+                    celular = table.Column<string>(type: "varchar(20)", nullable: false),
+                    id_tipo_usuario = table.Column<int>(type: "int(11)", nullable: false),
+                    cpf = table.Column<string>(type: "varchar(9)", nullable: false),
+                    endereco = table.Column<string>(type: "varchar(255)", nullable: false),
+                    complemento = table.Column<string>(type: "varchar(255)", nullable: false),
+                    cidade = table.Column<string>(type: "varchar(255)", nullable: false),
+                    cep = table.Column<string>(type: "varchar(255)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuario", x => x.id);
+                    table.PrimaryKey("PK_usuario", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_usuario_tipo_usuario_id_tipo_usuario",
+                        column: x => x.id_tipo_usuario,
+                        principalTable: "tipo_usuario",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Campanha_Email",
+                name: "campanha_email",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -64,18 +112,18 @@ namespace ByTech_API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Campanha_Email", x => x.id);
+                    table.PrimaryKey("PK_campanha_email", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Campanha_Email_Usuario_id_admin",
+                        name: "FK_campanha_email_usuario_id_admin",
                         column: x => x.id_admin,
-                        principalTable: "Usuario",
+                        principalTable: "usuario",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Mensagem_Contato",
+                name: "mensagem_contato",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -89,18 +137,18 @@ namespace ByTech_API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Mensagem_Contato", x => x.id);
+                    table.PrimaryKey("PK_mensagem_contato", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Mensagem_Contato_Usuario_id_usuario",
+                        name: "FK_mensagem_contato_usuario_id_usuario",
                         column: x => x.id_usuario,
-                        principalTable: "Usuario",
+                        principalTable: "usuario",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Pedido_Venda",
+                name: "pedido_venda",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -111,18 +159,18 @@ namespace ByTech_API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pedido_Venda", x => x.id);
+                    table.PrimaryKey("PK_pedido_venda", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Pedido_Venda_Usuario_id_usuario",
+                        name: "FK_pedido_venda_usuario_id_usuario",
                         column: x => x.id_usuario,
-                        principalTable: "Usuario",
+                        principalTable: "usuario",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Servico_Manutencao",
+                name: "servico_manutencao",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -138,24 +186,24 @@ namespace ByTech_API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Servico_Manutencao", x => x.id);
+                    table.PrimaryKey("PK_servico_manutencao", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Servico_Manutencao_Usuario_id_cliente",
+                        name: "FK_servico_manutencao_usuario_id_cliente",
                         column: x => x.id_cliente,
-                        principalTable: "Usuario",
+                        principalTable: "usuario",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Servico_Manutencao_Usuario_id_tecnico",
+                        name: "FK_servico_manutencao_usuario_id_tecnico",
                         column: x => x.id_tecnico,
-                        principalTable: "Usuario",
+                        principalTable: "usuario",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Item_Venda",
+                name: "item_venda",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -167,24 +215,24 @@ namespace ByTech_API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Item_Venda", x => x.id);
+                    table.PrimaryKey("PK_item_venda", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Item_Venda_Pedido_Venda_id_venda",
+                        name: "FK_item_venda_pedido_venda_id_venda",
                         column: x => x.id_venda,
-                        principalTable: "Pedido_Venda",
+                        principalTable: "pedido_venda",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Item_Venda_Produto_id_produto",
+                        name: "FK_item_venda_produto_id_produto",
                         column: x => x.id_produto,
-                        principalTable: "Produto",
+                        principalTable: "produto",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Pagamento",
+                name: "pagamento",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -196,84 +244,100 @@ namespace ByTech_API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pagamento", x => x.id);
+                    table.PrimaryKey("PK_pagamento", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Pagamento_Pedido_Venda_id_venda",
+                        name: "FK_pagamento_pedido_venda_id_venda",
                         column: x => x.id_venda,
-                        principalTable: "Pedido_Venda",
+                        principalTable: "pedido_venda",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Campanha_Email_id_admin",
-                table: "Campanha_Email",
+                name: "IX_campanha_email_id_admin",
+                table: "campanha_email",
                 column: "id_admin");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Item_Venda_id_produto",
-                table: "Item_Venda",
+                name: "IX_item_venda_id_produto",
+                table: "item_venda",
                 column: "id_produto");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Item_Venda_id_venda",
-                table: "Item_Venda",
+                name: "IX_item_venda_id_venda",
+                table: "item_venda",
                 column: "id_venda");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Mensagem_Contato_id_usuario",
-                table: "Mensagem_Contato",
+                name: "IX_mensagem_contato_id_usuario",
+                table: "mensagem_contato",
                 column: "id_usuario");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pagamento_id_venda",
-                table: "Pagamento",
+                name: "IX_pagamento_id_venda",
+                table: "pagamento",
                 column: "id_venda",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pedido_Venda_id_usuario",
-                table: "Pedido_Venda",
+                name: "IX_pedido_venda_id_usuario",
+                table: "pedido_venda",
                 column: "id_usuario");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Servico_Manutencao_id_cliente",
-                table: "Servico_Manutencao",
+                name: "IX_produto_id_categoria",
+                table: "produto",
+                column: "id_categoria");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_servico_manutencao_id_cliente",
+                table: "servico_manutencao",
                 column: "id_cliente");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Servico_Manutencao_id_tecnico",
-                table: "Servico_Manutencao",
+                name: "IX_servico_manutencao_id_tecnico",
+                table: "servico_manutencao",
                 column: "id_tecnico");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_usuario_id_tipo_usuario",
+                table: "usuario",
+                column: "id_tipo_usuario");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Campanha_Email");
+                name: "campanha_email");
 
             migrationBuilder.DropTable(
-                name: "Item_Venda");
+                name: "item_venda");
 
             migrationBuilder.DropTable(
-                name: "Mensagem_Contato");
+                name: "mensagem_contato");
 
             migrationBuilder.DropTable(
-                name: "Pagamento");
+                name: "pagamento");
 
             migrationBuilder.DropTable(
-                name: "Servico_Manutencao");
+                name: "servico_manutencao");
 
             migrationBuilder.DropTable(
-                name: "Produto");
+                name: "produto");
 
             migrationBuilder.DropTable(
-                name: "Pedido_Venda");
+                name: "pedido_venda");
 
             migrationBuilder.DropTable(
-                name: "Usuario");
+                name: "categoria");
+
+            migrationBuilder.DropTable(
+                name: "usuario");
+
+            migrationBuilder.DropTable(
+                name: "tipo_usuario");
         }
     }
 }

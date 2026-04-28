@@ -12,12 +12,16 @@ namespace ByTech_API.Data.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName("id");
             builder.Property(x => x.Nome).HasColumnName("nome").IsRequired();
-            builder.Property(x => x.Categoria).HasColumnName("categoria").IsRequired();
+            builder.Property(x => x.CategoriaId).HasColumnName("id_categoria").HasColumnType("int(11)").IsRequired();
             builder.Property(x => x.Descricao).HasColumnName("descricao").IsRequired();
             builder.Property(x => x.PrecoVenda).HasColumnName("preco_venda").IsRequired();
             builder.Property(x => x.EstoqueAtual).HasColumnName("estoque_atual").IsRequired();
             builder.Property(x => x.Marca).HasColumnName("marca").IsRequired();
             builder.Property(x => x.Imagem).HasColumnName("imagem").IsRequired();
+
+            builder.HasOne(x => x.Categoria)
+                    .WithMany()
+                    .HasForeignKey(x => x.CategoriaId);
         }
     }
 }

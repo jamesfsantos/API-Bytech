@@ -24,6 +24,6 @@ namespace ByTech_API.Dtos
         public string Assunto { get; set; }
         public string CorpoMensagem { get; set; }
         public DateTime Data_Disparo { get; set; }
-        public Usuarios UsuarioAdmin { get; set; }
+        public Usuario UsuarioAdmin { get; set; }
     }
 }

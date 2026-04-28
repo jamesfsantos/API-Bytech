@@ -26,7 +26,7 @@ namespace ByTech_API.Controllers
 
             if (produto == null) return BadRequest();
 
-            return CreatedAtAction(nameof(ObterProdutoId), new { id = produto.Id }, produto);
+            return CreatedAtAction(nameof(ObterProdutoIdCategoria), new { id = produto.Id }, produto);
         }
 
 
@@ -39,22 +39,30 @@ namespace ByTech_API.Controllers
             return Ok(produtos);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> ObterProdutoId(int id)
+        [HttpGet("/api/produto/categoria/{categoriaId}")]
+        public async Task<IActionResult> ObterProdutoIdCategoria(int categoriaId)
         {
-            var produto = await _service.ObterPorId(id);
+            var produto = await _service.ObterPorIdCategoria(categoriaId);
             if (produto == null)
                 return NotFound();
             return Ok(produto);
         }
 
-        [HttpGet("/api/Produto/Categoria/{categoria}")]
-        public async Task<IActionResult> ObterPorCategoria(string categoria)
+        [HttpGet("/api/produto/{id}")]
+        public async Task<IActionResult> ObterProdutoId(int id)
         {
-            var produto = await _service.ObterPorCategoria(categoria);
-            if (produto == null)
-                return NotFound();
+            var produto = await _service.ObterPorId(id);
+            if(produto == null) return NotFound();
             return Ok(produto);
         }
+
+        //[HttpGet("/api/Produto/Categoria/{categoria}")]
+        //public async Task<IActionResult> ObterPorCategoria(string categoria)
+        //{
+        //    var produto = await _service.ObterPorCategoria(categoria);
+        //    if (produto == null)
+        //        return NotFound();
+        //    return Ok(produto);
+        //}
     }
 }
