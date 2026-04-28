@@ -56,6 +56,18 @@ namespace ByTech_API.Controllers
             return CreatedAtAction(nameof(BuscarUsuarioid), new { id = usuario.Id }, usuario);
         }
 
+        [HttpGet("/email/")]
+        public async Task<IActionResult> BuscarUsuarioEmail(string email)
+        {
+            var usuario = await _service.ObterPorEmail(email);
+
+            if(usuario == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(usuario);
+        }
         
 
         [HttpPut("{id}")] 

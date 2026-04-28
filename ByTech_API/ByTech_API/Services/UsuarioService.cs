@@ -172,5 +172,31 @@ namespace ByTech_API.Services
                 Encoding.UTF8.GetBytes(usuario.Senha)
             );
         }
+
+        public async Task<UsuarioDto> ObterPorEmail(string email)
+        {
+            var usuario = await _context.Usuarios.Include(x => x.TipoUsuario).FirstOrDefaultAsync(x => x.Email == email);
+
+            if (usuario == null)
+                return null;
+
+            return new UsuarioDto
+            {
+                Id = usuario.Id,
+                Nome = usuario.Nome,
+                Email = usuario.Email,
+                TipoUsuarioId = usuario.TipoUsuarioId,
+                Celular = usuario.Celular,
+                Endereco = usuario.Endereco,
+                Complemento = usuario.Complemento,
+                Cidade = usuario.Cidade,
+                Cep = usuario.Cep,
+                TipoUsuario = new TipoUsuarioDto
+                {
+                    Id = usuario.TipoUsuario.Id,
+                    Nome = usuario.TipoUsuario.Nome
+                }
+            };
+        }
     }
 }

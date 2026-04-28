@@ -4,7 +4,7 @@ namespace ByTech_API.Contracts.Services
 {
     public interface IAuthService
     {
-        string GerarToken(string email, string role);
+        string GerarToken(string email, string role,string nome);
         string Autenticar(LoginDto loginDto);
     }
 }

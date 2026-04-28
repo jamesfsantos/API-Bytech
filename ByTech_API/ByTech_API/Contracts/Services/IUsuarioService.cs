@@ -11,6 +11,8 @@ namespace ByTech_API.Contracts.Services
         Task<UsuarioDto> AdicionarUsuario(UsuarioDto usuarioDto);
         Task<bool> ExcluirUsuario(int id);
 
+        Task<UsuarioDto> ObterPorEmail(string email);
+
         Task<bool> ValidarLogin(string email, string senha);
     }
 }

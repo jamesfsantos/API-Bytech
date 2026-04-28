@@ -2,13 +2,14 @@
 using ByTech_API.Dtos;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ByTech_API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
-    { 
+    {
         private readonly IAuthService _authService;
         private readonly IUsuarioService _usuarioService;
 
@@ -19,22 +20,25 @@ namespace ByTech_API.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginDto login)
+        public async Task<IActionResult> Login([FromBody] LoginDto login)
         {
-            var token = _authService.Autenticar(login);
+            // 2. Valida no banco
+            var usuario = await _usuarioService.ObterPorEmail(login.Email);
 
-            if (token == null) {
-                return Unauthorized(new
-                {
-                    mensagem = "E-mail ou senha inválidos. Tente novamnete"
-                });
-            }
-
+            // 3. Na hora de gerar o token e o retorno, IGNORE o login.Role 
+            // e use o dadosUsuario.TipoUsuario
+            var token = _authService.GerarToken(
+                usuario.Email,
+                usuario.TipoUsuario.Nome, 
+                usuario.Nome
+            );
 
             return Ok(new
             {
                 token = token,
-                usuarioEmail = login.Email
+                usuarioEmail = usuario.Email,
+                usuarioNome = usuario.Nome,
+                role = usuario.TipoUsuario.Nome 
             });
         }
     }
