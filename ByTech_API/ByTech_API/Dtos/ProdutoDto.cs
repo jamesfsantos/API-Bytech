@@ -16,9 +16,9 @@ namespace ByTech_API.Dtos
             EstoqueAtual = produto.EstoqueAtual;
             Marca = produto.Marca;
             Imagem = produto.Imagem;
-            Categoria = new CategoriaDto 
-            { 
-                Id = produto.Categoria.Id, 
+            Categoria = new CategoriaDto
+            {
+                Id = produto.Categoria.Id,
                 Nome = produto.Categoria.Nome
             };
         }
