@@ -45,6 +45,7 @@ builder.Services.AddScoped<ICampanhaEmailService, CampanhaEmailService>();
 builder.Services.AddScoped<IMensagensContatoService, MensagensContatoService>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddScoped<IAuthService, AuthService>();  
+builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
