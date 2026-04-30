@@ -25,7 +25,7 @@ namespace ByTech_API.Dtos
             Cep = usuario.Cep;
             TipoUsuarioId = usuario.TipoUsuarioId;  
         }
-
+        [JsonIgnore]
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
