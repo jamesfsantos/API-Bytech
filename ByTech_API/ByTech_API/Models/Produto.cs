@@ -11,7 +11,7 @@
         public int EstoqueAtual { get; set; }
         public string Marca { get; set; }
 
-        public Categoria Categoria { get; set; }
+        public Categoria? Categoria { get; set; }
 
     }
 }

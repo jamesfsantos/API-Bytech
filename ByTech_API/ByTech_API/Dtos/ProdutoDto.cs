@@ -31,6 +31,6 @@ namespace ByTech_API.Dtos
         public decimal PrecoVenda { get; set; }
         public int EstoqueAtual { get; set; }
         public string Marca { get; set; }
-        public CategoriaDto Categoria { get; set; }
+        public CategoriaDto? Categoria { get; set; }
     }
 }

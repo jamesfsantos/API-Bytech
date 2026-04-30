@@ -26,7 +26,7 @@ namespace ByTech_API.Controllers
 
             if (produto == null) return BadRequest();
 
-            return CreatedAtAction(nameof(ObterProdutoIdCategoria), new { id = produto.Id }, produto);
+            return Ok(produto);
         }
 
 
