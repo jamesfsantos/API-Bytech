@@ -8,7 +8,7 @@ namespace ByTech_API.Contracts.Services
         Task<IEnumerable<ProdutoDto>> ObterPorIdCategoria(int categoriaId);
         Task<ProdutoDto> ObterPorId(int id);
 
-
+        Task<ProdutoDto> AtualizarProduto(int id, ProdutoDto produtoDto);
         Task<ProdutoDto> AdicionarProduto(ProdutoDto produto);
     }
 }

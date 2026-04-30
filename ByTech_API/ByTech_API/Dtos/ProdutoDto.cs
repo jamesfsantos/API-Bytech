@@ -1,4 +1,5 @@
 ﻿using ByTech_API.Models;
+using System.Text.Json.Serialization;
 
 namespace ByTech_API.Dtos
 {
@@ -23,6 +24,7 @@ namespace ByTech_API.Dtos
             };
         }
 
+        [JsonIgnore]
         public int Id { get; set; }
         public string Nome { get; set; }
         public int CategoriaId { get; set; }

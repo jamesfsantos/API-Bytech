@@ -56,13 +56,18 @@ namespace ByTech_API.Controllers
             return Ok(produto);
         }
 
-        //[HttpGet("/api/Produto/Categoria/{categoria}")]
-        //public async Task<IActionResult> ObterPorCategoria(string categoria)
-        //{
-        //    var produto = await _service.ObterPorCategoria(categoria);
-        //    if (produto == null)
-        //        return NotFound();
-        //    return Ok(produto);
-        //}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> AtualizarProduto(int id, [FromBody] ProdutoDto produtoDto)
+        {
+            var produto = await _service.AtualizarProduto(id, produtoDto);
+
+            if(produto == null)
+            {
+                return NotFound($"Produto com id: {id} não foi encontrado!");
+            }
+
+
+            return NoContent();
+        }
     }
 }

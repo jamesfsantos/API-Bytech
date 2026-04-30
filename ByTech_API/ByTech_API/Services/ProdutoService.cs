@@ -1,6 +1,7 @@
 ﻿using ByTech_API.Contracts.Services;
 using ByTech_API.Data;
 using ByTech_API.Dtos;
+using ByTech_API.Extensions;
 using ByTech_API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +31,19 @@ namespace ByTech_API.Services
             _context.Add(produto);
             await _context.SaveChangesAsync();
             produtoDto.Id = produto.Id;
+            return produtoDto;
+        }
+
+        public async Task<ProdutoDto> AtualizarProduto(int id, ProdutoDto produtoDto)
+        {
+            var produto = await _context.Produtos.FindAsync(id);
+            if (produto == null)
+                return null;
+
+            produto.AtualizaParaProdutoDto(produtoDto);
+
+            await _context.SaveChangesAsync();
+
             return produtoDto;
         }
 
