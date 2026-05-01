@@ -69,5 +69,18 @@ namespace ByTech_API.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletarProduto(int id)
+        {
+            var produto = await _service.DeletarProduto(id);
+
+            if (produto == null)
+            {
+                return NotFound($"Não existe um produto com o id: {id}");
+            }
+
+            return Ok(produto);
+        }
     }
 }

@@ -10,5 +10,7 @@ namespace ByTech_API.Contracts.Services
 
         Task<ProdutoDto> AtualizarProduto(int id, ProdutoDto produtoDto);
         Task<ProdutoDto> AdicionarProduto(ProdutoDto produto);
+
+        Task<bool> DeletarProduto(int id);
     }
 }

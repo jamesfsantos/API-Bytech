@@ -47,6 +47,18 @@ namespace ByTech_API.Services
             return produtoDto;
         }
 
+        public async Task<bool> DeletarProduto(int id)
+        {
+            var produto = await _context.Produtos.FindAsync(id);
+
+            if (produto == null) return false;
+
+            _context.Produtos.Remove(produto);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
         public async Task<ProdutoDto> ObterPorId(int id)
         {
             var produtos = await _context.Produtos
