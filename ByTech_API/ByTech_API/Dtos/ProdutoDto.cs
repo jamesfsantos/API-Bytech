@@ -1,4 +1,5 @@
 ﻿using ByTech_API.Models;
+using System.Text.Json.Serialization;
 
 namespace ByTech_API.Dtos
 {
@@ -16,13 +17,14 @@ namespace ByTech_API.Dtos
             EstoqueAtual = produto.EstoqueAtual;
             Marca = produto.Marca;
             Imagem = produto.Imagem;
-            Categoria = new CategoriaDto 
-            { 
-                Id = produto.Categoria.Id, 
+            Categoria = new CategoriaDto
+            {
+                Id = produto.Categoria.Id,
                 Nome = produto.Categoria.Nome
             };
         }
 
+        
         public int Id { get; set; }
         public string Nome { get; set; }
         public int CategoriaId { get; set; }
@@ -31,6 +33,6 @@ namespace ByTech_API.Dtos
         public decimal PrecoVenda { get; set; }
         public int EstoqueAtual { get; set; }
         public string Marca { get; set; }
-        public CategoriaDto Categoria { get; set; }
+        public CategoriaDto? Categoria { get; set; }
     }
 }

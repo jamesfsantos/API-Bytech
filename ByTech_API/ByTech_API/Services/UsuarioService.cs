@@ -1,6 +1,7 @@
 ﻿using ByTech_API.Contracts.Services;
 using ByTech_API.Data;
 using ByTech_API.Dtos;
+using ByTech_API.Extensions;
 using ByTech_API.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
@@ -12,9 +13,11 @@ namespace ByTech_API.Services
     public class UsuarioService : IUsuarioService
     {
         private readonly AppDbContext _context;
+        
         public UsuarioService(AppDbContext context)
         {
             _context = context;
+            
         }
 
 
@@ -49,17 +52,8 @@ namespace ByTech_API.Services
             if (usuario == null)
                 return null;
 
-            usuario.Nome = usuarioDto.Nome;
-            usuario.Email = usuarioDto.Email;
-            usuario.Senha = usuarioDto.Senha;
-            usuario.Celular = usuarioDto.Celular;
-            usuario.Cpf = usuarioDto.Cpf;
-            usuario.Endereco = usuarioDto.Endereco;
-            usuario.Complemento = usuarioDto.Complemento;
-            usuario.Cidade = usuarioDto.Cidade;
-            usuario.Cep = usuarioDto.Cep;
+            usuario.AtualizaParaUsuarioDto(usuarioDto);
 
-            _context.Update(usuario);
             await _context.SaveChangesAsync();
 
             return usuarioDto;

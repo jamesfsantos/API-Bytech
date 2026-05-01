@@ -73,10 +73,7 @@ namespace ByTech_API.Controllers
         [HttpPut("{id}")] 
         public async Task<IActionResult> AtualizarUsuario(int id, [FromBody] UsuarioDto usuarioDto)
         {
-            if (id != usuarioDto.Id)
-            {
-                return BadRequest("O Id não corresponde ao do corpo.");
-            }
+            
             var usuario = await _service.AtualizarUsuario(id, usuarioDto);         
             if (usuario == null)
             {
