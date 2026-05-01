@@ -24,7 +24,7 @@ namespace ByTech_API.Dtos
             };
         }
 
-        [JsonIgnore]
+        
         public int Id { get; set; }
         public string Nome { get; set; }
         public int CategoriaId { get; set; }
