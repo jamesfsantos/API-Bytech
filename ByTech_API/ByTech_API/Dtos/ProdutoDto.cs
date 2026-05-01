@@ -17,6 +17,9 @@ namespace ByTech_API.Dtos
             EstoqueAtual = produto.EstoqueAtual;
             Marca = produto.Marca;
             Imagem = produto.Imagem;
+            DataCadastro = produto.DataCadastro;
+            DataAtualizacao = produto.DataAtualizacao;
+            Ativo = produto.Ativo;
             Categoria = new CategoriaDto
             {
                 Id = produto.Categoria.Id,
@@ -33,6 +36,11 @@ namespace ByTech_API.Dtos
         public decimal PrecoVenda { get; set; }
         public int EstoqueAtual { get; set; }
         public string Marca { get; set; }
+
+        public DateTime DataCadastro { get; set; }
+        public DateTime DataAtualizacao { get; set; }
+        public bool Ativo { get; set; }
+
         public CategoriaDto? Categoria { get; set; }
     }
 }

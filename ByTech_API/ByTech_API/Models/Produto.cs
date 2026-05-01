@@ -10,6 +10,9 @@
         public decimal PrecoVenda { get; set; }
         public int EstoqueAtual { get; set; }
         public string Marca { get; set; }
+        public DateTime DataCadastro { get; set; }
+        public DateTime DataAtualizacao { get; set; }
+        public bool Ativo { get; set; }
 
         public Categoria? Categoria { get; set; }
 

@@ -26,6 +26,9 @@ namespace ByTech_API.Services
                 EstoqueAtual = produtoDto.EstoqueAtual,
                 PrecoVenda = produtoDto.PrecoVenda,
                 Imagem = produtoDto.Imagem,
+                DataAtualizacao = DateTime.Now,
+                DataCadastro = DateTime.Now,
+                Ativo = true
             };
 
             _context.Add(produto);
@@ -39,6 +42,7 @@ namespace ByTech_API.Services
             var produto = await _context.Produtos.FindAsync(id);
             if (produto == null)
                 return null;
+
 
             produto.AtualizaParaProdutoDto(produtoDto);
 
