@@ -14,11 +14,11 @@ namespace ByTech_API.Data.Configurations
             builder.Property(x => x.Metodo).HasConversion<string>().HasColumnName("metodo").IsRequired();
             builder.Property(x => x.Status).HasConversion<string>().HasColumnName("status").IsRequired();
             builder.Property(x => x.DataConfirmacao).HasColumnName("data_confirmacao").IsRequired();
-            builder.Property(x => x.VendaId).HasColumnName("id_venda");
+            builder.Property(x => x.PedidoId).HasColumnName("id_pedido");
 
-            builder.HasOne(x => x.Venda)
+            builder.HasOne(x => x.Pedido)
             .WithOne()
-            .HasForeignKey<Pagamento>(x => x.VendaId);
+            .HasForeignKey<Pagamento>(x => x.PedidoId);
 
             
         }

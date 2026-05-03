@@ -6,21 +6,21 @@ namespace ByTech_API.Controllers
 {
     [Route("/api/[controller]")]
     [ApiController]
-    public class PedidoVendaController : Controller
+    public class PedidoController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly IPedidoVendaService _service;
+        private readonly IPedidoService _service;
 
-        public PedidoVendaController(AppDbContext context, IPedidoVendaService service)
+        public PedidoController(AppDbContext context, IPedidoService service)
         {
             _context = context;
             _service = service;
         }
 
         [HttpGet]
-        public async Task<IActionResult> BuscarTodasVendas()
+        public async Task<IActionResult> BuscarTodosPedidos()
         {
-            var vendas = _service.ObterTodosPedidosVendas();
+            var vendas = await _service.ObterTodosPedidos();
 
             if(vendas == null)
                 return NotFound();

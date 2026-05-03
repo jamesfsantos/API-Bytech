@@ -180,6 +180,7 @@ namespace ByTech_API.Services
                 Nome = usuario.Nome,
                 Email = usuario.Email,
                 TipoUsuarioId = usuario.TipoUsuarioId,
+                Cpf = usuario.Cpf,
                 Celular = usuario.Celular,
                 Endereco = usuario.Endereco,
                 Complemento = usuario.Complemento,

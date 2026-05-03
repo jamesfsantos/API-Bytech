@@ -5,21 +5,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ByTech_API.Services
 {
-    public class PedidoVendaService : IPedidoVendaService
+    public class PedidoService : IPedidoService
     {
         private readonly AppDbContext _context;
-        public PedidoVendaService(AppDbContext context)
+        public PedidoService(AppDbContext context)
         {
             _context = context;
         }
-        public async Task<IEnumerable<PedidoVendaDto>> ObterTodosPedidosVendas()
+        public async Task<IEnumerable<PedidoDto>> ObterTodosPedidos()
         {
-            var pedidos = await _context.PedidosVenda.ToListAsync();
+            var pedidos = await _context.Pedidos.ToListAsync();
 
             if (pedidos == null || !pedidos.Any())
                 return null;
 
-            return pedidos.Select(pedido => new PedidoVendaDto(pedido));
+            return pedidos.Select(pedido => new PedidoDto(pedido));
         }
     }
 }

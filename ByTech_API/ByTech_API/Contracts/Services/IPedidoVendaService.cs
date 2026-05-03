@@ -2,8 +2,8 @@
 
 namespace ByTech_API.Contracts.Services
 {
-    public interface IPedidoVendaService 
+    public interface IPedidoService 
     {
-        Task<IEnumerable<PedidoVendaDto>> ObterTodosPedidosVendas();
+        Task<IEnumerable<PedidoDto>> ObterTodosPedidos();
     }
 }
