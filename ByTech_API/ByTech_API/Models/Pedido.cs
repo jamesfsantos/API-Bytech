@@ -10,6 +10,7 @@
         public string Email { get; set; }
         public string Celular { get; set; }
         public string Cpf { get; set; }
+        public virtual ICollection<ItemPedido> ItensPedidos { get; set; }
 
         public Usuario Usuario {  get; set; }
     }

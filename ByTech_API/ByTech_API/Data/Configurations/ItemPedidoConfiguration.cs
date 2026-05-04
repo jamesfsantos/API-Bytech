@@ -20,7 +20,7 @@ namespace ByTech_API.Data.Configurations
 
 
             builder.HasOne(x => x.Pedido)
-            .WithMany()
+            .WithMany(x => x.ItensPedidos)
             .HasForeignKey(x => x.PedidoId);
 
             builder.HasOne(x => x.Produto)

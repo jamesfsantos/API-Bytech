@@ -6,7 +6,7 @@ namespace ByTech_API.Dtos
     {
         public PedidoDto()
         {
-            
+            Itens = new List<ItemPedidoDto>();
         }
         public PedidoDto(Pedido pedido)
         {
@@ -18,7 +18,18 @@ namespace ByTech_API.Dtos
             Email = pedido.Email;
             Celular = pedido.Celular;
             Cpf = pedido.Cpf;
-            Usuario = pedido.Usuario;
+            if(pedido.ItensPedidos != null)
+            {
+                Itens = pedido.ItensPedidos.Select(x => new ItemPedidoDto 
+                { 
+                    Id = x.Id,
+                    Nome = x.Nome,
+                    Quantidade = x.Quantidade,
+                    Valor = x.Valor,
+                    ValorTotal = x.ValorTotal,
+                    ProdutoId = x.ProdutoId
+                }).ToList();
+            }
         }
 
         public int Id { get; set; }
@@ -30,7 +41,7 @@ namespace ByTech_API.Dtos
         public string Celular { get; set; }
         public string Cpf { get; set; }
 
-
-        public Usuario Usuario { get; set; }
+        public List<ItemPedidoDto> Itens { get; set; } 
+        
     }
 }

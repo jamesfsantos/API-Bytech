@@ -1,4 +1,5 @@
 ﻿using ByTech_API.Models;
+using System.Text.Json.Serialization;
 
 namespace ByTech_API.Dtos
 {
@@ -18,8 +19,6 @@ namespace ByTech_API.Dtos
             Valor = itemPedido.Valor;
             ValorTotal = itemPedido.ValorTotal;
             Nome = itemPedido.Nome;
-            Produto = itemPedido.Produto;
-            Pedido = itemPedido.Pedido;
         }
 
 
@@ -31,7 +30,8 @@ namespace ByTech_API.Dtos
         public decimal ValorTotal { get; set; }
         public string Nome { get; set; }
 
-        public Produto Produto { get; set; }
-        public Pedido Pedido { get; set; }
+        
+        
+        
     }
 }
