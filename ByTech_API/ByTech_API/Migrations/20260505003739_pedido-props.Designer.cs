@@ -3,6 +3,7 @@ using System;
 using ByTech_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ByTech_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260505003739_pedido-props")]
+    partial class pedidoprops
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,6 +199,21 @@ namespace ByTech_API.Migrations
                         .HasColumnType("varchar(20)")
                         .HasColumnName("celular");
 
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("cep");
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Cidade");
+
+                    b.Property<string>("Complemento")
+                        .IsRequired()
+                        .HasColumnType("varchar(150)")
+                        .HasColumnName("complemento");
+
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasColumnType("varchar(14)")
@@ -209,6 +227,11 @@ namespace ByTech_API.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)")
                         .HasColumnName("email");
+
+                    b.Property<string>("Endereco")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("endereco");
 
                     b.Property<string>("NomeUsuario")
                         .IsRequired()
@@ -439,7 +462,7 @@ namespace ByTech_API.Migrations
             modelBuilder.Entity("ByTech_API.Models.ItemPedido", b =>
                 {
                     b.HasOne("ByTech_API.Models.Pedido", "Pedido")
-                        .WithMany()
+                        .WithMany("ItensPedidos")
                         .HasForeignKey("PedidoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -527,6 +550,11 @@ namespace ByTech_API.Migrations
                         .IsRequired();
 
                     b.Navigation("TipoUsuario");
+                });
+
+            modelBuilder.Entity("ByTech_API.Models.Pedido", b =>
+                {
+                    b.Navigation("ItensPedidos");
                 });
 #pragma warning restore 612, 618
         }

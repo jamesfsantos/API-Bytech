@@ -38,9 +38,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySQL(connectionString));
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IPagamentoService, PagamentoService>();
-builder.Services.AddScoped<IPedidoVendaService, PedidoVendaService>();
+builder.Services.AddScoped<IPedidoService, PedidoService>();
 builder.Services.AddScoped<IServicoManutencaoService, ServicoManutencaoService>();
-builder.Services.AddScoped<IItemVendaService, ItemVendaService>();
+builder.Services.AddScoped<IItemService, ItemPedidoService>();
 builder.Services.AddScoped<ICampanhaEmailService, CampanhaEmailService>();
 builder.Services.AddScoped<IMensagensContatoService, MensagensContatoService>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();

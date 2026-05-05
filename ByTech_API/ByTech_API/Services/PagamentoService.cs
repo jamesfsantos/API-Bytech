@@ -23,7 +23,7 @@ namespace ByTech_API.Services
             return new PagamentoDto
             {
                 Id = pagamento.Id,
-                VendaId = pagamento.VendaId,
+                VendaId = pagamento.PedidoId,
                 DataConfirmacao = pagamento.DataConfirmacao,
                 Metodo = pagamento.Metodo,
                 Status = pagamento.Status

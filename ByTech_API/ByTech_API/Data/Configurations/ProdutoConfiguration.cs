@@ -18,6 +18,9 @@ namespace ByTech_API.Data.Configurations
             builder.Property(x => x.EstoqueAtual).HasColumnName("estoque_atual").IsRequired();
             builder.Property(x => x.Marca).HasColumnName("marca").IsRequired();
             builder.Property(x => x.Imagem).HasColumnName("imagem").IsRequired();
+            builder.Property(x => x.DataCadastro).HasColumnName("data_cadastro").HasColumnType("datetime").IsRequired();
+            builder.Property(x => x.DataAtualizacao).HasColumnName("data_atualizacao").HasColumnType("datetime").IsRequired();
+            builder.Property(x => x.Ativo).HasColumnType("tinyint").HasColumnName("ativo").IsRequired();
 
             builder.HasOne(x => x.Categoria)
                     .WithMany()

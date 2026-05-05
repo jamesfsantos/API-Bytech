@@ -3,6 +3,7 @@ using System;
 using ByTech_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ByTech_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260501205525_produtos-props")]
+    partial class produtosprops
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,21 +71,16 @@ namespace ByTech_API.Migrations
                     b.ToTable("categoria", (string)null);
                 });
 
-            modelBuilder.Entity("ByTech_API.Models.ItemPedido", b =>
+            modelBuilder.Entity("ByTech_API.Models.ItemVenda", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("nome_produto");
-
-                    b.Property<int>("PedidoId")
-                        .HasColumnType("int")
-                        .HasColumnName("id_pedido");
+                    b.Property<decimal>("PrecoUnitarioPago")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("preco_unitario_pago");
 
                     b.Property<int>("ProdutoId")
                         .HasColumnType("int")
@@ -92,21 +90,17 @@ namespace ByTech_API.Migrations
                         .HasColumnType("INT(11)")
                         .HasColumnName("quantidade");
 
-                    b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("valor");
-
-                    b.Property<decimal>("ValorTotal")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("valor_total");
+                    b.Property<int>("VendaId")
+                        .HasColumnType("int")
+                        .HasColumnName("id_venda");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PedidoId");
-
                     b.HasIndex("ProdutoId");
 
-                    b.ToTable("item_pedido", (string)null);
+                    b.HasIndex("VendaId");
+
+                    b.ToTable("item_venda", (string)null);
                 });
 
             modelBuilder.Entity("ByTech_API.Models.MensagensContato", b =>
@@ -167,52 +161,33 @@ namespace ByTech_API.Migrations
                         .HasColumnType("longtext")
                         .HasColumnName("metodo");
 
-                    b.Property<int>("PedidoId")
-                        .HasColumnType("int")
-                        .HasColumnName("id_pedido");
-
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("longtext")
                         .HasColumnName("status");
 
+                    b.Property<int>("VendaId")
+                        .HasColumnType("int")
+                        .HasColumnName("id_venda");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("PedidoId")
+                    b.HasIndex("VendaId")
                         .IsUnique();
 
                     b.ToTable("pagamento", (string)null);
                 });
 
-            modelBuilder.Entity("ByTech_API.Models.Pedido", b =>
+            modelBuilder.Entity("ByTech_API.Models.PedidoVenda", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    b.Property<string>("Celular")
-                        .IsRequired()
-                        .HasColumnType("varchar(20)")
-                        .HasColumnName("celular");
-
-                    b.Property<string>("Cpf")
-                        .IsRequired()
-                        .HasColumnType("varchar(14)")
-                        .HasColumnName("cpf");
-
                     b.Property<DateTime>("DataPedido")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("data_pedido");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("email");
-
-                    b.Property<string>("NomeUsuario")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<int>("UsuarioId")
                         .HasColumnType("int")
@@ -226,7 +201,7 @@ namespace ByTech_API.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("pedido", (string)null);
+                    b.ToTable("pedido_venda", (string)null);
                 });
 
             modelBuilder.Entity("ByTech_API.Models.Produto", b =>
@@ -436,23 +411,23 @@ namespace ByTech_API.Migrations
                     b.Navigation("UsuarioAdmin");
                 });
 
-            modelBuilder.Entity("ByTech_API.Models.ItemPedido", b =>
+            modelBuilder.Entity("ByTech_API.Models.ItemVenda", b =>
                 {
-                    b.HasOne("ByTech_API.Models.Pedido", "Pedido")
-                        .WithMany()
-                        .HasForeignKey("PedidoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ByTech_API.Models.Produto", "Produto")
                         .WithMany()
                         .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Pedido");
+                    b.HasOne("ByTech_API.Models.PedidoVenda", "Venda")
+                        .WithMany()
+                        .HasForeignKey("VendaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Produto");
+
+                    b.Navigation("Venda");
                 });
 
             modelBuilder.Entity("ByTech_API.Models.MensagensContato", b =>
@@ -468,16 +443,16 @@ namespace ByTech_API.Migrations
 
             modelBuilder.Entity("ByTech_API.Models.Pagamento", b =>
                 {
-                    b.HasOne("ByTech_API.Models.Pedido", "Pedido")
+                    b.HasOne("ByTech_API.Models.PedidoVenda", "Venda")
                         .WithOne()
-                        .HasForeignKey("ByTech_API.Models.Pagamento", "PedidoId")
+                        .HasForeignKey("ByTech_API.Models.Pagamento", "VendaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Pedido");
+                    b.Navigation("Venda");
                 });
 
-            modelBuilder.Entity("ByTech_API.Models.Pedido", b =>
+            modelBuilder.Entity("ByTech_API.Models.PedidoVenda", b =>
                 {
                     b.HasOne("ByTech_API.Models.Usuario", "Usuario")
                         .WithMany()
