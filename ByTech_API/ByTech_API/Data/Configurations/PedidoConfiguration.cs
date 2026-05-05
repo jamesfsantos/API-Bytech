@@ -17,6 +17,10 @@ namespace ByTech_API.Data.Configurations
             builder.Property(x => x.Email).HasColumnName("email").HasColumnType("varchar(100)");
             builder.Property(x => x.Celular).HasColumnName("celular").HasColumnType("varchar(20)");
             builder.Property(x => x.UsuarioId).HasColumnName("id_usuario");
+            builder.Property(x => x.Endereco).HasColumnName("endereco").HasColumnType("varchar(255)");
+            builder.Property(x => x.Complemento).HasColumnName("complemento").HasColumnType("varchar(150)");
+            builder.Property(x => x.Cidade).HasColumnName("cidade").HasColumnType("varchar(100)");
+            builder.Property(x => x.Cep).HasColumnName("cep").HasColumnType("varchar(20)");
 
             builder.HasOne(x => x.Usuario)
                 .WithMany()

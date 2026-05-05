@@ -18,6 +18,10 @@ namespace ByTech_API.Dtos
             Email = pedido.Email;
             Celular = pedido.Celular;
             Cpf = pedido.Cpf;
+            Endereco = pedido.Endereco;
+            Complemento = pedido.Complemento;
+            Cidade = pedido.Cidade;
+            Cep = pedido.Cep;
             if(pedido.ItensPedidos != null)
             {
                 Itens = pedido.ItensPedidos.Select(x => new ItemPedidoDto 
@@ -40,7 +44,10 @@ namespace ByTech_API.Dtos
         public string Email { get; set; }
         public string Celular { get; set; }
         public string Cpf { get; set; }
-
+        public string Endereco { get; set; }
+        public string Complemento { get; set; }
+        public string Cidade { get; set; }
+        public string Cep { get; set; }
         public List<ItemPedidoDto> Itens { get; set; } 
         
     }

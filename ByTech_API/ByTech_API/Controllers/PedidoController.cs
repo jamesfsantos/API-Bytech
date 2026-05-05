@@ -38,5 +38,16 @@ namespace ByTech_API.Controllers
             return Ok(pedidos);
         }
         
+
+        [HttpGet("{email}")]
+        public async Task<IActionResult> ObterPedidosEmail(string email)
+        {
+            var pedidos = await _service.ObterTodosPedidosEmail(email);
+            if (pedidos == null)
+                return NotFound($"Erro ao obter pedidos pelo email: {email}");
+
+            return Ok(pedidos);
+        }
+
     }
 }
