@@ -52,6 +52,18 @@ namespace ByTech_API.Services
             return pedidoDto;
         }
 
+        public async Task<bool> ExcluirPedido(int id)
+        {
+            var pedido = await _context.Pedidos.FindAsync(id);
+
+            if (pedido == null)
+                return false;
+
+            _context.Pedidos.Remove(pedido);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<IEnumerable<PedidoDto>> ObterTodosPedidos()
         {
             var pedidos = await _context.Pedidos.Include(p => p.ItensPedidos).ToListAsync();

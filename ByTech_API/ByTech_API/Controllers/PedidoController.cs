@@ -49,5 +49,13 @@ namespace ByTech_API.Controllers
             return Ok(pedidos);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletarPedido(int id)
+        {
+            var pedido = await _service.ExcluirPedido(id);
+            if(pedido == false)
+                return NotFound();
+            return Ok(pedido);
+        }
     }
 }
