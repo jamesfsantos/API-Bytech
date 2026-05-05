@@ -15,6 +15,6 @@ namespace ByTech_API.Models
         public string Mensagem { get; set; }
         public DateTime Data_Envio { get; set; }
 
-        public Usuarios Usuario { get; set; }
+        public Usuario Usuario { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace ByTech_API.Models
+﻿using ByTech_API.Enums;
+
+namespace ByTech_API.Models
 {
     public class ServicoManutencao
     {
@@ -9,10 +11,11 @@
         public string Equipamento { get; set; }
         public string Descricao_Problema { get; set; }
         public string Observacoes_Tecnicas { get; set; }
-        public string Status_Servico {  get; set; }
+        public StatusServico Status_Servico {  get; set; }
         public DateTime Data_Entrada { get; set; }
 
-        public virtual Usuarios Cliente { get; set; }
-        public virtual Usuarios Tecnico { get; set; }
+        public virtual Usuario Cliente { get; set; }
+        public virtual Usuario Tecnico { get; set; }
+        
     }
 }
