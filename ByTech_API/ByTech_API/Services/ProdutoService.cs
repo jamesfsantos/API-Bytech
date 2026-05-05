@@ -101,6 +101,7 @@ namespace ByTech_API.Services
                 EstoqueAtual = p.EstoqueAtual,
                 PrecoVenda = p.PrecoVenda,
                 Imagem = p.Imagem,
+                Ativo = p.Ativo,
                 Categoria = new CategoriaDto { Id = p.Categoria.Id, Nome = p.Categoria.Nome }
             });
         }
