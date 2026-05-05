@@ -30,7 +30,10 @@ namespace ByTech_API.Extensions
             if (produtoDto.EstoqueAtual >= 0) 
                 produto.EstoqueAtual = produtoDto.EstoqueAtual;
 
-            
+            if (produto.Ativo != produtoDto.Ativo)
+            {
+                produto.Ativo = produtoDto.Ativo;
+            }
 
         }
 
