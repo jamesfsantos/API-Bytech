@@ -22,10 +22,16 @@ namespace ByTech_API.Dtos
             Complemento = pedido.Complemento;
             Cidade = pedido.Cidade;
             Cep = pedido.Cep;
-            if(pedido.ItensPedidos != null)
+            StausPedidoId = pedido.StatusPedidoId;
+            StatusPedido = new StatusPedidoDto 
+            { 
+                Id = pedido.StatusPedido.Id,
+                StatusAtual = pedido.StatusPedido.StatusAtual 
+            };
+            if (pedido.ItensPedidos != null)
             {
-                Itens = pedido.ItensPedidos.Select(x => new ItemPedidoDto 
-                { 
+                Itens = pedido.ItensPedidos.Select(x => new ItemPedidoDto
+                {
                     Id = x.Id,
                     Nome = x.Nome,
                     Quantidade = x.Quantidade,
@@ -48,7 +54,9 @@ namespace ByTech_API.Dtos
         public string Complemento { get; set; }
         public string Cidade { get; set; }
         public string Cep { get; set; }
-        public List<ItemPedidoDto> Itens { get; set; } 
-        
+        public int StausPedidoId { get; set; }
+        public StatusPedidoDto? StatusPedido { get; set; }
+        public List<ItemPedidoDto> Itens { get; set; }
+
     }
 }

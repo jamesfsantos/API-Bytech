@@ -1,6 +1,7 @@
 ﻿using ByTech_API.Contracts.Services;
 using ByTech_API.Data;
 using ByTech_API.Dtos;
+using ByTech_API.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ByTech_API.Controllers
@@ -39,7 +40,7 @@ namespace ByTech_API.Controllers
         }
         
 
-        [HttpGet("{email}")]
+        [HttpGet("email/{email}")]
         public async Task<IActionResult> ObterPedidosEmail(string email)
         {
             var pedidos = await _service.ObterTodosPedidosEmail(email);
@@ -49,6 +50,15 @@ namespace ByTech_API.Controllers
             return Ok(pedidos);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> ObterPedidoId(int id)
+        {
+            var pedido = await _service.ObterPedidoId(id);
+            if (pedido == null)
+                return NotFound();
+            return Ok(pedido);
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletarPedido(int id)
         {
@@ -56,6 +66,16 @@ namespace ByTech_API.Controllers
             if(pedido == false)
                 return NotFound();
             return Ok(pedido);
+        }
+        [HttpPatch("{id}/status/{idStatus}")]
+        public async Task<IActionResult> AlterarStatus(int id, int idStatus)
+        {
+            var sucesso = await _service.AtualizarStatusPedido(id, idStatus);
+
+            if (!sucesso)
+                return BadRequest("Pedido ou Status não localizado.");
+
+            return Ok(new { message = "Status atualizado!" });
         }
     }
 }
