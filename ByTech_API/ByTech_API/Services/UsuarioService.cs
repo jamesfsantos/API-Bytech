@@ -13,11 +13,11 @@ namespace ByTech_API.Services
     public class UsuarioService : IUsuarioService
     {
         private readonly AppDbContext _context;
-        
+
         public UsuarioService(AppDbContext context)
         {
             _context = context;
-            
+
         }
 
 
@@ -84,6 +84,49 @@ namespace ByTech_API.Services
             };
         }
 
+        public static string FormatarCpf(string cpf)
+        {
+            if (string.IsNullOrEmpty(cpf)) return string.Empty;
+
+            var apenasNumeros = new string(cpf.Where(char.IsDigit).ToArray());
+
+            if (apenasNumeros.Length == 11)
+            {
+                return Convert.ToUInt64(apenasNumeros).ToString(@"000\.000\.000\-00");
+            }
+
+            return apenasNumeros;
+        }
+
+        public static string FormataCep(string cep)
+        {
+            if (string.IsNullOrEmpty(cep)) return string.Empty;
+            var apenasNumeros = new string(cep.Where(char.IsDigit).ToArray());
+
+            if (apenasNumeros.Length == 8)
+            {
+                return Convert.ToUInt64(apenasNumeros).ToString(@"00000\-000");
+            }
+            return apenasNumeros;
+        }
+
+        public static string FormatarTelefone(string telefone)
+        {
+            if (string.IsNullOrWhiteSpace(telefone)) return string.Empty;
+            var apenasNumeros = new string(telefone.Where(char.IsDigit).ToArray());
+
+            if (apenasNumeros.Length == 11)
+            {
+                return long.Parse(apenasNumeros).ToString(@"(00) 00000-0000");
+            }
+            else if (apenasNumeros.Length == 10)
+            {
+                return long.Parse(apenasNumeros).ToString(@"(00) 0000-0000");
+            }
+
+            return apenasNumeros;
+        }
+
         public async Task<UsuarioDto> AdicionarUsuario(UsuarioDto usuarioDto)
         {
 
@@ -91,48 +134,53 @@ namespace ByTech_API.Services
             byte[] saltBytes = RandomNumberGenerator.GetBytes(32);
             string saltString = Convert.ToBase64String(saltBytes);
 
-            // 2. Combinar a senha digitada com o Salt e gerar o Hash
+
             byte[] senhaComSaltBytes = Encoding.UTF8.GetBytes(usuarioDto.Senha + saltString);
             byte[] hashBytes = SHA256.HashData(senhaComSaltBytes);
             string hashString = Convert.ToBase64String(hashBytes);
 
-            try
+
+            var emailExiste = _context.Usuarios.Any(x => x.Email == usuarioDto.Email);
+            if (emailExiste)
             {
-                var usuarioValido = _context.Usuarios.Any(x => x.Email == usuarioDto.Email );
-
-                if (usuarioValido) 
-                {
-                    throw new Exception("Esse e-mail já possui cadastro!");
-                }
-                else
-                {
-                    var usuario = new Usuario
-                    {
-                        Nome = usuarioDto.Nome,
-                        Email = usuarioDto.Email,
-                        Senha = hashString,
-                        SenhaSalt = saltString,
-                        Celular = usuarioDto.Celular,
-                        Endereco = usuarioDto.Endereco,
-                        Complemento = usuarioDto.Complemento,
-                        Cpf = usuarioDto.Cpf,
-                        Cidade = usuarioDto.Cidade,
-                        Cep = usuarioDto.Cep,
-                        TipoUsuarioId = 2
-                    };
-
-                    _context.Usuarios.Add(usuario);
-
-                    await _context.SaveChangesAsync();
-                    usuarioDto.Id = usuario.Id;
-                    return usuarioDto;
-                }
+                throw new Exception("Email existente, insira outro.");
             }
-            catch (Exception e)
+            var cpfExiste = _context.Usuarios.Any(x => x.Cpf == usuarioDto.Cpf);
+            if (cpfExiste)
             {
-                Console.WriteLine("Erro: " + e);
-                return null;
+                throw new Exception("CPF já cadastrado, insira outro");
             }
+            var celularExiste = _context.Usuarios.Any(x => x.Celular == usuarioDto.Celular);
+            if (celularExiste)
+            {
+                throw new Exception("Celular já cadastrado, insira outro.");
+            }
+
+            else
+            {
+                var usuario = new Usuario
+                {
+                    Nome = usuarioDto.Nome,
+                    Email = usuarioDto.Email,
+                    Senha = hashString,
+                    SenhaSalt = saltString,
+                    Celular = FormatarTelefone(usuarioDto.Celular),
+                    Endereco = usuarioDto.Endereco,
+                    Complemento = usuarioDto.Complemento,
+                    Cpf = FormatarCpf(usuarioDto.Cpf),
+                    Cidade = usuarioDto.Cidade,
+                    Cep = FormataCep(usuarioDto.Cep),
+                    TipoUsuarioId = 2
+                };
+
+                _context.Usuarios.Add(usuario);
+
+                await _context.SaveChangesAsync();
+                usuarioDto.Id = usuario.Id;
+                return usuarioDto;
+            }
+
+
 
         }
 
