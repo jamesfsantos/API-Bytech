@@ -10,5 +10,6 @@ namespace ByTech_API.Contracts.Services
         Task<bool> AtualizarStatusPedido(int idPedido, int idStatus);
         Task<bool> ExcluirPedido(int id);  
         Task<PedidoDto> ObterPedidoId(int id);
+        Task<IEnumerable<ProdutosVendidosDto>> ObterProdutosVendidos();
     }
 }

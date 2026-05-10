@@ -77,5 +77,15 @@ namespace ByTech_API.Controllers
 
             return Ok(new { message = "Status atualizado!" });
         }
+
+        [HttpGet("produtosVendidos")]
+        public async Task<IActionResult> ObterProdutosVendidos()
+        {
+            var produtos = await _service.ObterProdutosVendidos();
+            if (produtos == null)
+                return NotFound("Não existe nenhum produto vendido");
+
+            return Ok(produtos);
+        }
     }
 }

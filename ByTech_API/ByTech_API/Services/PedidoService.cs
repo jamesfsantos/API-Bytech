@@ -118,6 +118,27 @@ namespace ByTech_API.Services
             };
         }
 
+        public async Task<IEnumerable<ProdutosVendidosDto>> ObterProdutosVendidos()
+        {
+            var produtos = await _context.Pedidos
+                .Where(x => x.StatusPedido.StatusAtual == "Pago")
+                .SelectMany(x => x.ItensPedidos)
+                .GroupBy(i => i.Nome)
+                .Select(g => new ProdutosVendidosDto 
+                {
+                    NomeProduto = g.Key,
+                    Quantidade = g.Sum(i => i.Quantidade),
+                })
+                .ToListAsync();
+
+            if(produtos.Count == 0)
+            {
+                return null;
+            }
+
+            return produtos;
+        }
+
         public async Task<IEnumerable<PedidoDto>> ObterTodosPedidos()
         {
             var pedidos = await _context.Pedidos.Include(p => p.ItensPedidos).Include(p => p.StatusPedido).ToListAsync();
