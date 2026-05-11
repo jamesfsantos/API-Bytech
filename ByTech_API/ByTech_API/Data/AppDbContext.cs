@@ -19,6 +19,7 @@ namespace ByTech_API.Data
         public DbSet<CampanhaEmail> CampanhasEmails { get; set; }
         public DbSet<MensagensContato> MensagensContatos { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<StatusPedido> StatusPedidos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +33,7 @@ namespace ByTech_API.Data
             modelBuilder.ApplyConfiguration(new ServicoManutencaoConfiguration());            
             modelBuilder.ApplyConfiguration(new CategoriaConfiguration());
             modelBuilder.ApplyConfiguration(new TipoUsuarioConfiguration());
+            modelBuilder.ApplyConfiguration(new StatusPedidoConfiguration());
         }
     }
 }

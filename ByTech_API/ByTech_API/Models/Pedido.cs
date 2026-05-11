@@ -14,8 +14,9 @@
         public string Complemento { get; set; }
         public string Cidade { get; set; }
         public string Cep { get; set; }
+        public int StatusPedidoId { get; set; }
         public virtual ICollection<ItemPedido> ItensPedidos { get; set; }
-
+        public StatusPedido StatusPedido { get; set; }
         public Usuario Usuario {  get; set; }
     }
 }

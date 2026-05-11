@@ -1,5 +1,6 @@
 using ByTech_API.Contracts.Services;
 using ByTech_API.Data;
+using ByTech_API.Errors;
 using ByTech_API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -63,7 +64,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseCors("PoliticaCors");
 
 // Configure the HTTP request pipeline.
