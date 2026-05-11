@@ -14,9 +14,10 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["ByTech_API.csproj", "ByTech_API/"]
 RUN dotnet restore "./ByTech_API/ByTech_API.csproj"
-COPY . .
-WORKDIR "/src/ByTech_API"
+COPY . ./ByTech_API
+WORKDIR /src/ByTech_API
 RUN dotnet build "./ByTech_API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
