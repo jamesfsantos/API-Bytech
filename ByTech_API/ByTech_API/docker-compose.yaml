@@ -1,0 +1,12 @@
+﻿name: bytech_api
+services:
+    bytech_api:
+      build:
+        context: .
+        dockerfile: Dockerfile      
+      container_name: bytech_api
+      environment:
+        - ASPNETCORE_ENVIRONMENT=Release
+      ports:
+        - 8090:8080
+      image: bytech_api
