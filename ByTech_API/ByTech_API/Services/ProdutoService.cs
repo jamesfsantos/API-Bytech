@@ -66,7 +66,7 @@ namespace ByTech_API.Services
         public async Task<ProdutoDto> ObterPorId(int id)
         {
             var produtos = await _context.Produtos
-                                            .Include(p => p.Categoria) 
+                                            .Include(p => p.Categoria)
                                             .FirstOrDefaultAsync(p => p.Id == id);
             if (produtos == null)
                 return null;
@@ -104,6 +104,15 @@ namespace ByTech_API.Services
                 Ativo = p.Ativo,
                 Categoria = new CategoriaDto { Id = p.Categoria.Id, Nome = p.Categoria.Nome }
             });
+        }
+
+        public async Task<IEnumerable<ProdutoDto>> ObterProdutosDigitados(string query)
+        {
+            var produtos = await _context.Produtos.Include(p => p.Categoria).Where(p => p.Nome.ToLower().Contains(query.ToLower()) && p.Ativo == true).ToListAsync();
+            if (produtos == null)
+                return null;
+
+            return produtos.Select(p => new ProdutoDto(p));
         }
 
         public async Task<IEnumerable<ProdutoDto>> ObterTodosAsync()

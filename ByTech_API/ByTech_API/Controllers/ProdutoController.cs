@@ -83,5 +83,15 @@ namespace ByTech_API.Controllers
 
             return Ok(produto);
         }
+
+        [HttpGet("busca")]
+        public async Task<IActionResult> ObterProdutosNome([FromQuery] string query)
+        {
+            var produtos = await _service.ObterProdutosDigitados(query);
+            if (produtos == null || !produtos.Any())
+                return NotFound();
+
+            return Ok(produtos);
+        }
     }
 }
